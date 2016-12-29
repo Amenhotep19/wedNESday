@@ -1,0 +1,5 @@
+*.pyc
+.checkpoint/
+github.mk
+python.mk
+venv/
