@@ -76,7 +76,6 @@ class CPUTest(TestCase):
 
     def test_lda_zeropage(self):
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa5)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0xff)
@@ -84,11 +83,9 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
     def test_lda_zero_page_x(self):
         self.cpu_set_register('X', 0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xb5)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0xff)
@@ -97,10 +94,8 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
     def test_lda_absolute(self):
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xad)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -110,12 +105,9 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
     def test_lda_absolute_x(self):
         self.cpu_set_register('X', 1)
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xbd)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -130,7 +122,6 @@ class CPUTest(TestCase):
     def test_lda_absolute_x_2(self):
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xbd)
         self.memory_set(0x0101, 0xff)
         self.memory_set(0x0102, 0x02)
@@ -141,10 +132,8 @@ class CPUTest(TestCase):
         self.assertEquals(cycles, 5)
 
     def test_lda_absolute_y(self):
-
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xb9)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -153,12 +142,10 @@ class CPUTest(TestCase):
         cycles, _ = self.execute()
 
         self.assertEquals(cycles, 4)
-
         self.assertEquals(self.cpu_register('A'), 0xff)
 
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xb9)
         self.memory_set(0x0101, 0xff)
         self.memory_set(0x0102, 0x02)
@@ -168,12 +155,9 @@ class CPUTest(TestCase):
 
         # TODO: self.assertEquals(cycles, 5)
 
-
     def test_lda_indirect_x(self):
-
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa1)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0x87)
@@ -184,12 +168,9 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
     def test_lda_indirect_y(self):
-
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xb1)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0x86)
@@ -199,12 +180,10 @@ class CPUTest(TestCase):
         cycles, _ = self.execute()
 
         #TODO: self.assertEquals(cycle, 5)
-
         self.assertEquals(self.cpu_register('A'), 0xff)
 
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xb1)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0xff)
@@ -215,11 +194,8 @@ class CPUTest(TestCase):
 
         #TODO: self.assertEquals(cycle, 6)
 
-
     def test_lda_z_flag_set(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa9)
         self.memory_set(0x0101, 0x00)
 
@@ -227,11 +203,8 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('Z'))
 
-
     def test_lda_z_flag_unset(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa9)
         self.memory_set(0x0101, 0x01)
 
@@ -239,11 +212,8 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('Z'))
 
-
     def test_lda_n_flag_set(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa9)
         self.memory_set(0x0101, 0x81)
 
@@ -251,11 +221,8 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('N'))
 
-
     def test_lda_n_flag_unset(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa9)
         self.memory_set(0x0101, 0x01)
 
@@ -263,13 +230,10 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('N'))
 
-
     # // LDX
 
     def test_ldx_immediate(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa2)
         self.memory_set(0x0101, 0xff)
 
@@ -279,31 +243,27 @@ class CPUTest(TestCase):
 
     def test_ldx_zero_page(self):
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa6)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0xff)
 
         self.execute()
-        self.assertEquals(self.cpu_register('X'), 0xff)
 
+        self.assertEquals(self.cpu_register('X'), 0xff)
 
     def test_ldx_zeropage_y(self):
         self.cpu_set_register('Y', 0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xb6)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0xff)
 
         self.execute()
+
         self.assertEquals(self.cpu_register('X'), 0xff)
 
-
     def test_ldx_absolute(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xae)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -313,12 +273,9 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('X'), 0xff)
 
-
     def test_ldx_absolute_y(self):
-
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xbe)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -328,11 +285,8 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('X'), 0xff)
 
-
     def test_ldx_z_flag_set(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa2)
         self.memory_set(0x0101, 0x00)
 
@@ -340,11 +294,8 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('Z'))
 
-
     def test_ldx_z_flag_unset(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa2)
         self.memory_set(0x0101, 0x01)
 
@@ -352,11 +303,8 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('Z'))
 
-
     def test_ldx_n_flag_set(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa2)
         self.memory_set(0x0101, 0x81)
 
@@ -364,11 +312,8 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('N'))
 
-
     def test_ldx_n_flag_unset(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa2)
         self.memory_set(0x0101, 0x01)
 
@@ -376,13 +321,10 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('N'))
 
-
     # // LDY
 
     def test_ldy_immediate(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa0)
         self.memory_set(0x0101, 0xff)
 
@@ -390,25 +332,18 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('Y'), 0xff)
 
-
     def test_ldy_zeropage(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa4)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0xff)
 
         self.execute()
-
         self.assertEquals(self.cpu_register('Y'), 0xff)
 
-
     def test_ldy_zeropage_x(self):
-
         self.cpu_set_register('X', 0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xb4)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0xff)
@@ -417,11 +352,8 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('Y'), 0xff)
 
-
     def test_ldy_absolute(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xac)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -431,12 +363,9 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('Y'), 0xff)
 
-
     def test_ldy_absolute_x(self):
-
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xbc)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -446,11 +375,8 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('Y'), 0xff)
 
-
     def test_ldy_z_flag_set(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa0)
         self.memory_set(0x0101, 0x00)
 
@@ -458,11 +384,8 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('Z'))
 
-
     def test_ldy_z_flag_unset(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa0)
         self.memory_set(0x0101, 0x01)
 
@@ -470,11 +393,8 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('Z'))
 
-
     def test_ldy_n_flag_set(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa0)
         self.memory_set(0x0101, 0x81)
 
@@ -482,11 +402,8 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('N'))
 
-
     def test_ldy_n_flag_unset(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa0)
         self.memory_set(0x0101, 0x01)
 
@@ -494,13 +411,11 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('N'))
 
-
     # // STA
 
     def test_sta_zeropage(self):
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x85)
         self.memory_set(0x0101, 0x84)
 
@@ -508,12 +423,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.memory_fetch(0x0084), 0xff)
 
-
     def test_sta_zeropage_x(self):
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('X', 0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x95)
         self.memory_set(0x0101, 0x84)
 
@@ -521,11 +434,9 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.memory_fetch(0x0085), 0xff)
 
-
     def test_sta_absolute(self):
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x8d)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -534,12 +445,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.memory_fetch(0x0084), 0xff)
 
-
     def test_sta_absolute_x(self):
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x9d)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -548,12 +457,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.memory_fetch(0x0085), 0xff)
 
-
     def test_sta_absolute_y(self):
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x99)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -562,13 +469,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.memory_fetch(0x0085), 0xff)
 
-
     def test_sta_indirect_x(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x81)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0x87)
@@ -578,13 +482,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.memory_fetch(0x0087), 0xff)
 
-
     def test_sta_indirect_y(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x91)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0x86)
@@ -594,14 +495,11 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.memory_fetch(0x0087), 0xff)
 
-
     # // STX
 
     def test_stx_zeropage(self):
-
         self.cpu_set_register('X', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x86)
         self.memory_set(0x0101, 0x84)
 
@@ -609,14 +507,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.memory_fetch(0x0084), 0xff)
 
-
-
     def test_stx_zeropage_y(self):
-
         self.cpu_set_register('X', 0xff)
         self.cpu_set_register('Y', 0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x96)
         self.memory_set(0x0101, 0x84)
 
@@ -624,12 +518,9 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.memory_fetch(0x0085), 0xff)
 
-
     def test_stx_absolute(self):
-
         self.cpu_set_register('X', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x8e)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -638,14 +529,11 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.memory_fetch(0x0084), 0xff)
 
-
     # // STY
 
     def test_sty_zeropage(self):
-
         self.cpu_set_register('Y', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x84)
         self.memory_set(0x0101, 0x84)
 
@@ -653,28 +541,20 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.memory_fetch(0x0084), 0xff)
 
-
     def test_sty_zeropage_y(self):
-
         self.cpu_set_register('Y', 0xff)
         self.cpu_set_register('X', 0x01)
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x94)
         self.memory_set(0x0101, 0x84)
 
         self.execute()
 
-
         self.assertEquals(self.memory_fetch(0x0085), 0xff)
 
-
     def test_sty_absolute(self):
-
         self.cpu_set_register('Y', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x8c)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -683,26 +563,20 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.memory_fetch(0x0084), 0xff)
 
-
     # // TAX
 
     def test_tax(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xaa)
 
         self.execute()
 
         self.assertEquals(self.cpu_register('X'), 0xff)
 
-
     def test_tax_z_flag_set(self):
-
         self.cpu_set_register('A', 0x00)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xaa)
 
         self.execute()
@@ -712,7 +586,6 @@ class CPUTest(TestCase):
     def test_tax_z_flag_unset(self):
         self.cpu_set_register('A', 0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xaa)
 
         self.execute()
@@ -722,33 +595,26 @@ class CPUTest(TestCase):
     def test_tax_n_flag_set(self):
         self.cpu_set_register('A', 0x81)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xaa)
 
         self.execute()
 
         self.assertTrue(self.cpu_flag('N'))
 
-
     def test_tax_n_flag_unset(self):
         self.cpu_set_register('A', 0x01)
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xaa)
 
         self.execute()
 
         self.assertFalse(self.cpu_flag('N'))
 
-
     # // TAY
 
     def test_tay(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xa8)
 
         self.execute()
@@ -758,24 +624,19 @@ class CPUTest(TestCase):
     # // TXA
 
     def test_txa(self):
-
         self.cpu_set_register('X', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x8a)
 
         self.execute()
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
     # // TYA
 
     def test_tya(self):
-
         self.cpu_set_register('Y', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x98)
 
         self.execute()
@@ -787,35 +648,29 @@ class CPUTest(TestCase):
     def test_tsx(self):
         self.cpu_set_register('SP', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xba)
 
         self.execute()
 
         self.assertEquals(self.cpu_register('X'), 0xff)
 
-
     # // TXS
 
     def test_txs(self):
         self.cpu_set_register('X', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x9a)
 
         self.execute()
 
         self.assertEquals(self.cpu_register('SP'), 0xff)
 
-
     # // PHA
 
     @skip('TODO')
     def test_pha(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x48)
 
         self.execute()
@@ -824,14 +679,12 @@ class CPUTest(TestCase):
     #         t.Error("Memory is not 0xff")
     #     }
 
-
     # // PHP
+
     @skip('TODO')
     def test_php(self):
         self.cpu_set_register('P', 0xff)
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x08)
 
         self.execute()
@@ -845,30 +698,25 @@ class CPUTest(TestCase):
 
     @skip('TODO')
     def test_pla(self):
-
         self.cpu_pc(0x0100)
         #TODO: cpu.push(0xff)
-
         self.memory_set(0x0100, 0x68)
 
         self.execute()
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
-
+    @skip('TODO')
     def test_pla_z_flag_set(self):
-
         # TODO: cpu.push(0x00)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x68)
 
         self.execute()
 
-        # self.assertTrue(self.cpu_flag('Z'))
+        self.assertTrue(self.cpu_flag('Z'))
 
-
+    @skip('TODO')
     def test_pla_z_flag_unset(self):
 
         # TODO: cpu.push(0x01)
@@ -880,49 +728,42 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('Z'))
 
+    @skip('TODO')
+    def test_pla_n_flag_set(self):
+        # TODO: cpu.push(0x81)
+        self.cpu_pc(0x0100)
 
-# def test_Pla_n_flag_set(self):
+        self.memory_set(0x0100, 0x68)
 
-#     cpu.push(0x81)
-#     self.cpu_pc(0x0100)
+        self.execute()
+        self.assertTrue(self.cpu_flag('N'))
 
-#     self.memory_set(0x0100, 0x68)
+    @skip('TODO')
+    def test_pla_n_flag_unset(self):
+        cpu.push(0x01)
+        self.cpu_pc(0x0100)
 
-#     self.execute()
+        self.memory_set(0x0100, 0x68)
 
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
+        self.execute()
 
-
-# def test_Pla_n_flag_unset(self):
-
-#     cpu.push(0x01)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x68)
-
-#     self.execute()
-
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+        self.assertFalse(self.cpu_flag('N'))
 
 
-# // PLP
+    # // PLP
 
-# def test_Plp(self):
+    @skip('TODO')
+    def test_plp(self):
+        self.cpu_pc(0x0100)
+        cpu.push(0xff)
 
-#     self.cpu_pc(0x0100)
-#     cpu.push(0xff)
+        self.memory_set(0x0100, 0x28)
 
-#     self.memory_set(0x0100, 0x28)
+        self.execute()
 
-#     self.execute()
-
-#     if cpu.Registers.P != 0xef {
-#         t.Error("Status is not 0xef")
-#     }
+        # if cpu.Registers.P != 0xef {
+        #     t.Error("Status is not 0xef")
+        # }
 
 
     # // AND
@@ -930,7 +771,6 @@ class CPUTest(TestCase):
     def test_and_immediate(self):
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x29)
         self.memory_set(0x0101, 0x0f)
 
@@ -938,11 +778,9 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0x0f)
 
-
     def test_and_zeropage(self):
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x25)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0x0f)
@@ -951,13 +789,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0x0f)
 
-
     def test_and_zeropage_x(self):
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('X', 0x01)
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x35)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0x0f)
@@ -966,12 +801,9 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0x0f)
 
-
     def test_and_absolute(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x2d)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -981,13 +813,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0x0f)
 
-
     def test_and_absolute_x(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x3d)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -997,13 +826,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0x0f)
 
-
     def test_and_absolute_y(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x39)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -1013,13 +839,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0x0f)
 
-
     def test_and_indirect_x(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x21)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0x87)
@@ -1030,13 +853,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0x0f)
 
-
     def test_and_indirect_y(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x31)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0x86)
@@ -1047,11 +867,8 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0x0f)
 
-
     def test_and_z_flag_set(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x29)
         self.memory_set(0x0101, 0x00)
 
@@ -1059,11 +876,9 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('Z'))
 
-
     def test_and_z_flag_unset(self):
         self.cpu_set_register('A', 0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x29)
         self.memory_set(0x0101, 0x01)
 
@@ -1071,11 +886,9 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('Z'))
 
-
     def test_and_n_flag_set(self):
         self.cpu_set_register('A', 0x81)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x29)
         self.memory_set(0x0101, 0x81)
 
@@ -1083,10 +896,8 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('N'))
 
-
     def test_and_n_flag_unset(self):
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x29)
         self.memory_set(0x0101, 0x01)
 
@@ -1094,14 +905,11 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('N'))
 
-
     # // EOR
 
     def test_eor_immediate(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x49)
         self.memory_set(0x0101, 0x0f)
 
@@ -1109,12 +917,9 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xf0)
 
-
     def test_eor_zeropage(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x45)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0x0f)
@@ -1123,30 +928,21 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xf0)
 
-
     def test_eor_zeropage_x(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('X', 0x01)
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x55)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0x0f)
 
         self.execute()
 
-        self.assertEquals
-
         self.assertEquals(self.cpu_register('A'), 0xf0)
 
-
     def test_eor_absolute(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x4d)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -1156,13 +952,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xf0)
 
-
     def test_eor_absolute_x(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x5d)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -1172,13 +965,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xf0)
 
-
     def test_eor_absolute_y(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x59)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -1188,12 +978,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xf0)
 
-
     def test_eor_indirect_x(self):
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x41)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0x87)
@@ -1204,13 +992,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xf0)
 
-
     def test_eor_indirect_y(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x51)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0x86)
@@ -1221,11 +1006,8 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xf0)
 
-
     def test_eor_z_flag_set(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x49)
         self.memory_set(0x0101, 0x00)
 
@@ -1233,11 +1015,9 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('Z'))
 
-
     def test_eor_z_flag_unset(self):
         self.cpu_set_register('A', 0x00)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x49)
         self.memory_set(0x0101, 0x01)
 
@@ -1245,11 +1025,9 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('Z'))
 
-
     def test_eor_n_flag_set(self):
         self.cpu_set_register('A', 0x00)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x49)
         self.memory_set(0x0101, 0x81)
 
@@ -1257,11 +1035,8 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('N'))
 
-
     def test_eor_n_flag_unset(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x49)
         self.memory_set(0x0101, 0x01)
 
@@ -1269,13 +1044,11 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('N'))
 
-
     # // ORA
 
     def test_ora_immediate(self):
         self.cpu_set_register('A', 0xf0)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x09)
         self.memory_set(0x0101, 0x0f)
 
@@ -1283,13 +1056,9 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
-
     def test_ora_zeropage(self):
-
         self.cpu_set_register('A', 0xf0)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x05)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0x0f)
@@ -1298,12 +1067,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
     def test_ora_zeropage_x(self):
         self.cpu_set_register('A', 0xf0)
         self.cpu_set_register('X', 0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x15)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0x0f)
@@ -1312,27 +1079,21 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
     def test_ora_absolute(self):
         self.cpu_set_register('A', 0xf0)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x0d)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
         self.memory_set(0x0084, 0x0f)
-
         self.execute()
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
     def test_ora_absolute_x(self):
-
         self.cpu_set_register('A', 0xf0)
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x1d)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -1342,14 +1103,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
-
     def test_ora_absolute_y(self):
-
         self.cpu_set_register('A', 0xf0)
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x19)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -1359,13 +1116,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
     def test_ora_indirect_x(self):
-
         self.cpu_set_register('A', 0xf0)
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x01)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0x87)
@@ -1376,13 +1130,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
     def test_ora_indirect_y(self):
-
         self.cpu_set_register('A', 0xf0)
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x11)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0x86)
@@ -1393,11 +1144,8 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-
     def test_ora_z_flag_set(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x09)
         self.memory_set(0x0101, 0x00)
 
@@ -1405,12 +1153,9 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('Z'))
 
-
     def test_ora_z_flag_unset(self):
-
         self.cpu_set_register('A', 0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x09)
         self.memory_set(0x0101, 0x00)
 
@@ -1418,11 +1163,9 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('Z'))
 
-
     def test_ora_n_flag_set(self):
         self.cpu_set_register('A', 0x81)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x09)
         self.memory_set(0x0101, 0x00)
 
@@ -1430,11 +1173,8 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('N'))
 
-
     def test_ora_n_flag_unset(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x09)
         self.memory_set(0x0101, 0x01)
 
@@ -1442,11 +1182,9 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('N'))
 
-
     # // BIT
 
     def test_bit_zeropage(self):
-
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
         self.memory_set(0x0100, 0x24)
@@ -1455,123 +1193,87 @@ class CPUTest(TestCase):
 
         self.execute()
 
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+        self.assertFalse(self.cpu_flag('N'))
 
+    def test_bit_absolute(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x2c)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0084, 0x7f)
 
-# def test_BitAbsolute(self):
+        self.execute()
 
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_pc(0x0100)
+        self.assertFalse(self.cpu_flag('N'))
 
-#     self.memory_set(0x0100, 0x2c)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0084, 0x7f)
+    def test_bit_n_flag_set(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x24)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0xff)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+        self.assertTrue(self.cpu_flag('N'))
 
+    def test_bit_n_flag_unset(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x24)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x7f)
 
-# def test_Bit_n_flag_set(self):
+        self.execute()
 
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_pc(0x0100)
+        self.assertFalse(self.cpu_flag('N'))
 
-#     self.memory_set(0x0100, 0x24)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0xff)
+    @skip('TODO')
+    def test_bit_v_flag_set(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x24)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0xff)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
+        self.assertTrue(self.cpu_flag('V'))
 
+    @skip('TODO')
+    def test_bit_v_flag_unset(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x24)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x3f)
 
-# def test_Bit_n_flag_unset(self):
+        self.execute()
 
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_pc(0x0100)
+        self.assertFalse(self.cpu_flag('V'))
 
-#     self.memory_set(0x0100, 0x24)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x7f)
+    def test_bit_z_flag_set(self):
+        self.cpu_set_register('A', 0x00)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x24)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0xff)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+        self.assertTrue(self.cpu_flag('Z'))
 
+    def test_bit_z_flag_unset(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x24)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x3f)
 
-# def test_Bit_v_flag_set(self):
+        self.execute()
 
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x24)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0xff)
-
-#     self.execute()
-
-#     if cpu.Registers.P&V == 0 {
-#         t.Error("V flag is not set")
-#     }
-
-
-# def test_Bit_v_flag_unset(self):
-
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x24)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x3f)
-
-#     self.execute()
-
-#     if cpu.Registers.P&V != 0 {
-#         t.Error("V flag is set")
-#     }
-
-
-# def test_Bit_z_flag_set(self):
-
-#     cpu.Registers.A = 0x00
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x24)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0xff)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
-
-
-# def test_Bit_z_flag_unset(self):
-
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x24)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x3f)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
-
+        self.assertFalse(self.cpu_flag('Z'))
 
 # // ADC
 
@@ -1590,7 +1292,7 @@ class CPUTest(TestCase):
 #     }
 
 #     cpu.Registers.P |= D
-#     cpu.Registers.A = 0x29 // BCD
+#     self.cpu_set_register('A', 0x29) // BCD
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x69)
@@ -1603,7 +1305,7 @@ class CPUTest(TestCase):
 #     }
 
 #     cpu.Registers.P |= D
-#     cpu.Registers.A = 0x29 | uint8(N) // BCD
+#     self.cpu_set_register('A', 0x29) | uint8(N) // BCD
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x69)
@@ -1617,7 +1319,7 @@ class CPUTest(TestCase):
 
 #     cpu.Registers.P |= D
 #     cpu.Registers.P |= C
-#     cpu.Registers.A = 0x58 // BCD
+#     self.cpu_set_register('A', 0x58) // BCD
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x69)
@@ -1633,7 +1335,6 @@ class CPUTest(TestCase):
     def test_adc_zeropage(self):
         self.cpu_set_register('A', 0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x65)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0x02)
@@ -1642,14 +1343,10 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0x03)
 
-
-
     def test_adc_zeropage_x(self):
         self.cpu_set_register('A', 0x01)
         self.cpu_set_register('X', 0x01)
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x75)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0x02)
@@ -1658,11 +1355,9 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0x03)
 
-
     def test_adc_absolute(self):
         self.cpu_set_register('A', 0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x6d)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -1676,7 +1371,6 @@ class CPUTest(TestCase):
         self.cpu_set_register('A', 0x01)
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x7d)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -1690,7 +1384,6 @@ class CPUTest(TestCase):
         self.cpu_set_register('A', 0x01)
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x79)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -1704,7 +1397,6 @@ class CPUTest(TestCase):
         self.cpu_set_register('A', 0x01)
         self.cpu_set_register('X', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x61)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0x87)
@@ -1720,7 +1412,6 @@ class CPUTest(TestCase):
         self.cpu_set_register('A', 0x01)
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x71)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0084, 0x86)
@@ -1731,20 +1422,15 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('A'), 0x03)
 
+    def test_AdcC_flag_set(self):
+        self.cpu_set_register('A', 0xff) # -1
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x69)
+        self.memory_set(0x0101, 0x01) # +1
 
-# def test_AdcC_flag_set(self):
+        self.execute()
 
-#     self.cpu_set_register('A', 0xff // -1)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x69)
-#     self.memory_set(0x0101, 0x01) // +1
-
-#     self.execute()
-
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
+        self.assertTrue(self.cpu_flag('C'))
 
 #     cpu.Registers.P |= C
 #     self.cpu_set_register('A', 0xff // -1)
@@ -1755,24 +1441,18 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
+#     self.assertTrue(self.cpu_flag('C'))
 
 
-# def test_AdcC_flag_unset(self):
+    def test_AdcC_flag_unset(self):
+        self.cpu_set_register('A', 0x00) # +0
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x69)
+        self.memory_set(0x0101, 0x01) # +1
 
-#     cpu.Registers.A = 0x00 // +0
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x69)
-#     self.memory_set(0x0101, 0x01) // +1
-
-#     self.execute()
-
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
+        self.assertFalse(self.cpu_flag('C'))
 
 #     cpu.Registers.P &^= C
 #     self.cpu_set_register('A', 0xff // -1)
@@ -1783,27 +1463,21 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('C'))
 
 
-# def test_adc_z_flag_set(self):
+    def test_adc_z_flag_set(self):
+        self.cpu_set_register('A', 0x00) # +0
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x69)
+        self.memory_set(0x0101, 0x00) # +0
 
-#     cpu.Registers.A = 0x00 // +0
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x69)
-#     self.memory_set(0x0101, 0x00) // +0
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.assertTrue(self.cpu_flag('Z'))
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.A = 0xfe // -2
+#     self.cpu_set_register('A', 0xfe) // -2
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x69)
@@ -1811,96 +1485,69 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+# self.assertTrue(self.cpu_flag('Z'))
 
 
-# def test_adc_z_flag_unset(self):
+    def test_adc_z_flag_unset(self):
+        self.cpu_set_register('A', 0x00) # +0
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x69)
+        self.memory_set(0x0101, 0xff) # -1
 
-#     cpu.Registers.A = 0x00 // +0
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x69)
-#     self.memory_set(0x0101, 0xff) // -1
+        self.assertFalse(self.cpu_flag('Z'))
 
-#     self.execute()
+        self.cpu_set_register('A', 0xfe) # -2
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x69)
+        self.memory_set(0x0101, 0x01) # +1
 
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
+        self.execute()
 
-#     cpu.Registers.A = 0xfe // -2
-#     self.cpu_pc(0x0100)
+        self.assertFalse(self.cpu_flag('Z'))
 
-#     self.memory_set(0x0100, 0x69)
-#     self.memory_set(0x0101, 0x01) // +1
+    @skip('TODO')
+    def test_adc_v_flag_set(self):
+        self.cpu_set_register('A', 0x7f) # +127
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x69)
+        self.memory_set(0x0101, 0x01) # +1
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
+        self.assertTrue(self.cpu_flag('V'))
 
+    @skip('TODO')
+    def test_adc_v_flag_unset(self):
+        self.cpu_set_register('A', 0x01) # +1
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x69)
+        self.memory_set(0x0101, 0x01) # +1
 
-# def test_adc_v_flag_set(self):
+        self.execute()
 
-#     cpu.Registers.A = 0x7f // +127
-#     self.cpu_pc(0x0100)
+        self.assertFalse(self.cpu_flag('V'))
 
-#     self.memory_set(0x0100, 0x69)
-#     self.memory_set(0x0101, 0x01) // +1
+    def test_adc_n_flag_set(self):
+        self.cpu_set_register('A', 0x01) # +1
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x69)
+        self.memory_set(0x0101, 0xfe) # -2
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&V == 0 {
-#         t.Error("V flag is not set")
-#     }
+        self.assertTrue(self.cpu_flag('N'))
 
+    def test_adc_n_flag_unset(self):
+        self.cpu_set_register('A', 0x01) # +1
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x69)
+        self.memory_set(0x0101, 0x01) # +1
 
-# def test_adc_v_flag_unset(self):
+        self.execute()
 
-#     self.cpu_set_register('A', 0x01) // +1
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x69)
-#     self.memory_set(0x0101, 0x01) // +1
-
-#     self.execute()
-
-#     if cpu.Registers.P&V != 0 {
-#         t.Error("V flag is set")
-#     }
-
-
-# def test_adc_n_flag_set(self):
-
-#     self.cpu_set_register('A', 0x01) // +1
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x69)
-#     self.memory_set(0x0101, 0xfe) // -2
-
-#     self.execute()
-
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
-
-
-# def test_adc_n_flag_unset(self):
-
-#     self.cpu_set_register('A', 0x01) // +1
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x69)
-#     self.memory_set(0x0101, 0x01) // +1
-
-#     self.execute()
-
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+        self.assertFalse(self.cpu_flag('N'))
 
 
 # // SBC
@@ -1908,7 +1555,7 @@ class CPUTest(TestCase):
 # def test_sbc_immediate(self):
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.A = 0x02
+#     self.cpu_set_register('A', 0x02)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0xe9)
@@ -1921,7 +1568,7 @@ class CPUTest(TestCase):
 #     }
 
 #     cpu.Registers.P |= D
-#     cpu.Registers.A = 0x29 // BCD
+#     self.cpu_set_register('A', 0x29) // BCD
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0xe9)
@@ -1934,9 +1581,9 @@ class CPUTest(TestCase):
 #     }
 
     @skip('TODO')
-    def test_SbcZeroPage(self):
+    def test_sbc_zeroPage(self):
         cpu.Registers.P |= C
-        cpu.Registers.A = 0x02
+        self.cpu_set_register('A', 0x02)
         self.cpu_pc(0x0100)
 
         self.memory_set(0x0100, 0xe5)
@@ -1948,11 +1595,11 @@ class CPUTest(TestCase):
         self.assertEquals(self.cpu_register('A'), 0x01)
 
 
-# def test_SbcZeroPageX(self):
+# def test_sbcZeroPageX(self):
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.A = 0x02
-#     cpu.Registers.X = 0x01
+#     self.cpu_set_register('A', 0x02)
+#     self.cpu_set_register('X', 0x01)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0xf5)
@@ -1966,10 +1613,10 @@ class CPUTest(TestCase):
 #     }
 
 
-# def test_SbcAbsolute(self):
+# def test_sbcAbsolute(self):
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.A = 0x02
+#     self.cpu_set_register('A', 0x02)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0xed)
@@ -1984,10 +1631,10 @@ class CPUTest(TestCase):
 #     }
 
 
-# def test_SbcAbsoluteX(self):
+# def test_sbcAbsoluteX(self):
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.A = 0x02
+#     self.cpu_set_register('A', 0x02)
 #     self.cpu_set_register('X', 1)
 #     self.cpu_pc(0x0100)
 
@@ -2003,10 +1650,10 @@ class CPUTest(TestCase):
 #     }
 
 
-# def test_SbcAbsoluteY(self):
+# def test_sbcAbsoluteY(self):
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.A = 0x02
+#     self.cpu_set_register('A', 0x02)
 #     self.cpu_set_register('Y', 1)
 #     self.cpu_pc(0x0100)
 
@@ -2022,10 +1669,10 @@ class CPUTest(TestCase):
 #     }
 
 
-# def test_SbcIndirectX(self):
+# def test_sbcIndirectX(self):
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.A = 0x02
+#     self.cpu_set_register('A', 0x02)
 #     self.cpu_set_register('X', 1)
 #     self.cpu_pc(0x0100)
 
@@ -2042,10 +1689,10 @@ class CPUTest(TestCase):
 #     }
 
 
-# def test_SbcIndirectY(self):
+# def test_sbcIndirectY(self):
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.A = 0x02
+#     self.cpu_set_register('A', 0x02)
 #     self.cpu_set_register('Y', 1)
 #     self.cpu_pc(0x0100)
 
@@ -2062,898 +1709,638 @@ class CPUTest(TestCase):
 #     }
 
 
-# def test_SbcC_flag_set(self):
+    def test_sbc_c_flag_set(self):
+        self.cpu_set_register('A', 0xc4) # -60
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe9)
+        self.memory_set(0x0101, 0x3c) # +60
 
-#     cpu.Registers.A = 0xc4 // -60
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xe9)
-#     self.memory_set(0x0101, 0x3c) // +60
+        self.assertTrue(self.cpu_flag('C'))
 
-#     self.execute()
+    def test_sbc_c_flag_unset(self):
+        self.cpu_set_register('A', 0x02) # +2
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe9)
+        self.memory_set(0x0101, 0x04) # +4
 
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
+        self.execute()
 
+        self.assertFalse(self.cpu_flag('C'))
 
-# def test_SbcC_flag_unset(self):
+    def test_sbc_z_flag_set(self):
+        self.cpu_set_register('A', 0x02) # +2
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe9)
+        self.memory_set(0x0101, 0x01) # +1
 
-#     cpu.Registers.A = 0x02 // +2
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xe9)
-#     self.memory_set(0x0101, 0x04) // +4
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.execute()
+    def test_sbc_z_flag_unset(self):
+        self.cpu_set_register('A', 0x02) # +2
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe9)
+        self.memory_set(0x0101, 0x02) # +2
 
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
+        self.execute()
 
+        self.assertFalse(self.cpu_flag('Z'))
 
-# def test_Sbc_z_flag_set(self):
+    @skip('TODO')
+    def test_sbc_v_flag_set(self):
+        self.cpu_set_register('A', 0x80) # -128
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe9)
+        self.memory_set(0x0101, 0x01) # +1
 
-#     cpu.Registers.A = 0x02 // +2
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xe9)
-#     self.memory_set(0x0101, 0x01) // +1
+        self.assertTrue(self.cpu_flag('V'))
 
-#     self.execute()
+    @skip('TODO')
+    def test_sbc_v_flag_unset(self):
+        self.cpu_set_register('A', 0x01) # +1
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe9)
+        self.memory_set(0x0101, 0x01) # +1
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.execute()
 
+        self.assertFalse(self.cpu_flag('V'))
 
-# def test_Sbc_z_flag_unset(self):
+    def test_sbc_n_flag_set(self):
+        self.cpu_set_register('A', 0xfd) # -3
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe9)
+        self.memory_set(0x0101, 0x01) # +1
 
-#     cpu.Registers.A = 0x02 // +2
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xe9)
-#     self.memory_set(0x0101, 0x02) // +2
+        self.assertTrue(self.cpu_flag('N'))
 
-#     self.execute()
+    def test_sbc_n_flag_unset(self):
+        self.cpu_set_register('A', 0x02) # +2
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe9)
+        self.memory_set(0x0101, 0x01) # +1
 
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
+        self.execute()
 
+        self.assertFalse(self.cpu_flag('N'))
 
-# def test_Sbc_v_flag_set(self):
+    # // CMP
 
-#     cpu.Registers.A = 0x80 // -128
-#     self.cpu_pc(0x0100)
+    def test_cmp_immediate(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc9)
+        self.memory_set(0x0101, 0xff)
 
-#     self.memory_set(0x0100, 0xe9)
-#     self.memory_set(0x0101, 0x01) // +1
+        self.execute()
 
-#     self.execute()
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     if cpu.Registers.P&V == 0 {
-#         t.Error("V flag is not set")
-#     }
+    def test_cmp_zeropage(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc5)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0xff)
 
+        self.execute()
 
-# def test_Sbc_v_flag_unset(self):
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.cpu_set_register('A', 0x01) // +1
-#     self.cpu_pc(0x0100)
+    def test_cmp_zeropage_x(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xd5)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0085, 0xff)
 
-#     self.memory_set(0x0100, 0xe9)
-#     self.memory_set(0x0101, 0x01) // +1
+        self.execute()
 
-#     self.execute()
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     if cpu.Registers.P&V != 0 {
-#         t.Error("V flag is set")
-#     }
+    def test_cmp_absolute(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xcd)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0084, 0xff)
 
+        self.execute()
 
-# def test_Sbc_n_flag_set(self):
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     cpu.Registers.A = 0xfd // -3
-#     self.cpu_pc(0x0100)
+    def test_cmp_absolute_x(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_set_register('X', 1)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xdd)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0085, 0xff)
 
-#     self.memory_set(0x0100, 0xe9)
-#     self.memory_set(0x0101, 0x01) // +1
+        self.execute()
 
-#     self.execute()
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
+    def test_cmp_absolute_y(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_set_register('Y', 1)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xd9)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0085, 0xff)
 
+        self.execute()
 
-# def test_Sbc_n_flag_unset(self):
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     cpu.Registers.A = 0x02 // +2
-#     self.cpu_pc(0x0100)
+    def test_cmp_indirect_x(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_set_register('X', 1)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc1)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0085, 0x87)
+        self.memory_set(0x0086, 0x00)
+        self.memory_set(0x0087, 0xff)
 
-#     self.memory_set(0x0100, 0xe9)
-#     self.memory_set(0x0101, 0x01) // +1
+        self.execute()
 
-#     self.execute()
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+    def test_cmp_indirect_y(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_set_register('Y', 1)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xd1)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x86)
+        self.memory_set(0x0085, 0x00)
+        self.memory_set(0x0087, 0xff)
 
+        self.execute()
 
-# // CMP
+        self.assertTrue(self.cpu_flag('Z'))
 
-# def test_CmpImmediate(self):
+    def test_cmp_n_flag_set(self):
+        self.cpu_set_register('A', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc9)
+        self.memory_set(0x0101, 0x02)
 
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xc9)
-#     self.memory_set(0x0101, 0xff)
+        self.assertTrue(self.cpu_flag('N'))
 
-#     self.execute()
+    def test_Cmp_n_flag_unset(self):
+        self.cpu_set_register('A', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc9)
+        self.memory_set(0x0101, 0x01)
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.execute()
 
+        self.assertFalse(self.cpu_flag('N'))
 
-# def test_CmpZeroPage(self):
+    def test_cmp_z_flag_set(self):
+        self.cpu_set_register('A', 0x02)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc9)
+        self.memory_set(0x0101, 0x02)
 
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xc5)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0xff)
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.execute()
+        self.cpu_set_register('A', 0xfe) # -2
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc9)
+        self.memory_set(0x0101, 0xfe) # -2
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.execute()
 
+        self.assertTrue(self.cpu_flag('Z'))
 
-# def test_CmpZeroPageX(self):
+    def test_cmp_z_flag_unset(self):
+        self.cpu_set_register('A', 0x02)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc9)
+        self.memory_set(0x0101, 0x01)
 
-#     self.cpu_set_register('A', 0xff)
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xd5)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0085, 0xff)
+        self.assertFalse(self.cpu_flag('Z'))
 
-#     self.execute()
+        self.cpu_set_register('A', 0xfe) # -2
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc9)
+        self.memory_set(0x0101, 0xff) # -1
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.execute()
 
+        self.assertFalse(self.cpu_flag('Z'))
 
-# def test_CmpAbsolute(self):
+    def test_cmp_c_flag_set(self):
+        self.cpu_set_register('A', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc9)
+        self.memory_set(0x0101, 0x01)
 
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xcd)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0084, 0xff)
+        self.assertTrue(self.cpu_flag('C'))
 
-#     self.execute()
+        self.cpu_set_register('A', 0x02)
+        self.cpu_pc(0x0100)
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.memory_set(0x0100, 0xc9)
+        self.memory_set(0x0101, 0x01)
 
+        self.execute()
 
-# def test_CmpAbsoluteX(self):
+        self.assertTrue(self.cpu_flag('C'))
 
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_set_register('X', 1)
-#     self.cpu_pc(0x0100)
+        self.cpu_set_register('A', 0xfe) # -2
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc9)
+        self.memory_set(0x0101, 0xfd) #s -3
 
-#     self.memory_set(0x0100, 0xdd)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0085, 0xff)
+        self.execute()
 
-#     self.execute()
+        # if cpu.Registers.P&C == 0 {
+            # t.Error("C flag is not set")
+        # }
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
 
+    def test_cmp_c_flag_unset(self):
+        self.cpu_set_register('A', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc9)
+        self.memory_set(0x0101, 0x02)
 
-# def test_CmpAbsoluteY(self):
+        self.execute()
 
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_set_register('Y', 1)
-#     self.cpu_pc(0x0100)
+        self.assertFalse(self.cpu_flag('C'))
 
-#     self.memory_set(0x0100, 0xd9)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0085, 0xff)
+        self.cpu_set_register('A', 0xfd) # -3
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc9)
+        self.memory_set(0x0101, 0xfe) # -2
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.assertFalse(self.cpu_flag('C'))
 
+    # // CPX
 
-# def test_CmpIndirectX(self):
+    def test_cpx_immediate(self):
+        self.cpu_set_register('X', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe0)
+        self.memory_set(0x0101, 0xff)
 
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_set_register('X', 1)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xc1)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0085, 0x87)
-#     self.memory_set(0x0086, 0x00)
-#     self.memory_set(0x0087, 0xff)
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.execute()
+    def test_cpx_zeropage(self):
+        self.cpu_set_register('X', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe4)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0xff)
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.execute()
 
+        self.assertTrue(self.cpu_flag('Z'))
 
-# def test_CmpIndirectY(self):
+    def test_cpx_absolute(self):
+        self.cpu_set_register('X', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xec)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0084, 0xff)
 
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_set_register('Y', 1)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xd1)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x86)
-#     self.memory_set(0x0085, 0x00)
-#     self.memory_set(0x0087, 0xff)
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.execute()
+    def test_cpx_n_flag_set(self):
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe0)
+        self.memory_set(0x0101, 0x02)
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.execute()
 
+        self.assertTrue(self.cpu_flag('N'))
 
-# def test_Cmp_n_flag_set(self):
+    def test_cpx_n_flag_unset(self):
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe0)
+        self.memory_set(0x0101, 0x01)
 
-#     self.cpu_set_register('A', 0x01)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xc9)
-#     self.memory_set(0x0101, 0x02)
+        self.assertFalse(self.cpu_flag('N'))
 
-#     self.execute()
+    def test_cpx_z_flag_set(self):
+        self.cpu_set_register('X', 0x02)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe0)
+        self.memory_set(0x0101, 0x02)
 
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
+        self.execute()
 
+        self.assertTrue(self.cpu_flag('Z'))
 
-# def test_Cmp_n_flag_unset(self):
+    def test_cpx_z_flag_unset(self):
+        self.cpu_set_register('X', 0x02)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe0)
+        self.memory_set(0x0101, 0x01)
 
-#     self.cpu_set_register('A', 0x01)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xc9)
-#     self.memory_set(0x0101, 0x01)
+        self.assertFalse(self.cpu_flag('Z'))
 
-#     self.execute()
+    def test_cpx_c_flag_set(self):
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe0)
+        self.memory_set(0x0101, 0x01)
 
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+        self.execute()
 
+        self.assertTrue(self.cpu_flag('C'))
 
-# def test_Cmp_z_flag_set(self):
+    def test_cpx_C_flag_unset(self):
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe0)
+        self.memory_set(0x0101, 0x02)
 
-#     cpu.Registers.A = 0x02
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xc9)
-#     self.memory_set(0x0101, 0x02)
+        self.assertFalse(self.cpu_flag('C'))
 
-#     self.execute()
+    # // CPY
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+    def test_cpy_immediate(self):
+        self.cpu_set_register('Y', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc0)
+        self.memory_set(0x0101, 0xff)
 
-#     cpu.Registers.A = 0xfe // -2
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xc9)
-#     self.memory_set(0x0101, 0xfe) // -2
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.execute()
+    def test_cpy_zeroPage(self):
+        self.cpu_set_register('Y', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc4)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0xff)
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.execute()
 
+        self.assertTrue(self.cpu_flag('Z'))
 
-# def test_Cmp_z_flag_unset(self):
+    def test_cpy_absolute(self):
+        self.cpu_set_register('Y', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xcc)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0084, 0xff)
 
-#     cpu.Registers.A = 0x02
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xc9)
-#     self.memory_set(0x0101, 0x01)
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.execute()
+    def test_cpy_n_flag_set(self):
+        self.cpu_set_register('Y', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc0)
+        self.memory_set(0x0101, 0x02)
 
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
+        self.execute()
 
-#     cpu.Registers.A = 0xfe // -2
-#     self.cpu_pc(0x0100)
+        self.assertTrue(self.cpu_flag('N'))
 
-#     self.memory_set(0x0100, 0xc9)
-#     self.memory_set(0x0101, 0xff) // -1
+    def test_cpy_n_flag_unset(self):
+        self.cpu_set_register('Y', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc0)
+        self.memory_set(0x0101, 0x01)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
+        self.assertFalse(self.cpu_flag('N'))
 
+    def test_cpy_z_flag_set(self):
+        self.cpu_set_register('Y', 0x02)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc0)
+        self.memory_set(0x0101, 0x02)
 
-# def test_CmpC_flag_set(self):
+        self.execute()
 
-#     self.cpu_set_register('A', 0x01)
-#     self.cpu_pc(0x0100)
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.memory_set(0x0100, 0xc9)
-#     self.memory_set(0x0101, 0x01)
+    def test_Cpy_z_flag_unset(self):
+        self.cpu_set_register('Y', 0x02)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc0)
+        self.memory_set(0x0101, 0x01)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
+        self.assertFalse(self.cpu_flag('Z'))
 
-#     cpu.Registers.A = 0x02
-#     self.cpu_pc(0x0100)
+    def test_cpy_c_flag_set(self):
+        self.cpu_set_register('Y', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc0)
+        self.memory_set(0x0101, 0x01)
 
-#     self.memory_set(0x0100, 0xc9)
-#     self.memory_set(0x0101, 0x01)
+        self.execute()
 
-#     self.execute()
+        self.assertTrue(self.cpu_flag('C'))
 
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
+    def test_cpy_c_flag_unset(self):
+        self.cpu_set_register('Y', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc0)
+        self.memory_set(0x0101, 0x02)
 
-#     cpu.Registers.A = 0xfe // -2
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xc9)
-#     self.memory_set(0x0101, 0xfd) // -3
+        self.assertFalse(self.cpu_flag('C'))
 
-#     self.execute()
+    # // INC
 
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
+    def test_inc_zeroPage(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe6)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0xfe)
 
+        self.execute()
 
-# def test_CmpC_flag_unset(self):
+        # if cpu.Memory.Fetch(0x0084) != 0xff {
+        #     t.Error("Memory is not 0xff")
+        # }
 
-#     self.cpu_set_register('A', 0x01)
-#     self.cpu_pc(0x0100)
+    def test_inc_zeropage_x(self):
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xf6)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0085, 0xfe)
 
-#     self.memory_set(0x0100, 0xc9)
-#     self.memory_set(0x0101, 0x02)
+        self.execute()
 
-#     self.execute()
+        #     if cpu.Memory.Fetch(0x0085) != 0xff {
+        #         t.Error("Memory is not 0xff")
+        #     }
 
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
 
-#     cpu.Registers.A = 0xfd // -3
-#     self.cpu_pc(0x0100)
+    def test_inc_absolute(self):
 
-#     self.memory_set(0x0100, 0xc9)
-#     self.memory_set(0x0101, 0xfe) // -2
+        self.cpu_pc(0x0100)
 
-#     self.execute()
+        self.memory_set(0x0100, 0xee)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0084, 0xfe)
 
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
+        self.execute()
 
+        #     if cpu.Memory.Fetch(0x0084) != 0xff {
+        #         t.Error("Memory is not 0xff")
+        #     }
 
-# // CPX
+    def test_inc_absolute_x(self):
+        self.cpu_set_register('X', 1)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xfe)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0085, 0xfe)
 
-# def test_CpxImmediate(self):
+        self.execute()
 
-#     self.cpu_set_register('X', 0xff)
-#     self.cpu_pc(0x0100)
+        #     if cpu.Memory.Fetch(0x0085) != 0xff {
+        #         t.Error("Memory is not 0xff")
+        #     }
 
-#     self.memory_set(0x0100, 0xe0)
-#     self.memory_set(0x0101, 0xff)
+    def test_inc_z_flag_set(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe6)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0xff) # -1
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.assertTrue(self.cpu_flag('Z'))
 
+    def test_inc_z_flag_unset(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe6)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x00)
 
-# def test_CpxZeroPage(self):
+        self.execute()
 
-#     self.cpu_set_register('X', 0xff)
-#     self.cpu_pc(0x0100)
+        self.assertFalse(self.cpu_flag('Z'))
 
-#     self.memory_set(0x0100, 0xe4)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0xff)
+    def test_inc_n_flag_set(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe6)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0xfe) # -2
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.assertTrue(self.cpu_flag('N'))
 
+    def test_inc_n_flag_unset(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe6)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x00)
 
-# def test_CpxAbsolute(self):
+        self.execute()
 
-#     self.cpu_set_register('X', 0xff)
-#     self.cpu_pc(0x0100)
+        self.assertFalse(self.cpu_flag('N'))
 
-#     self.memory_set(0x0100, 0xec)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0084, 0xff)
+    # // INX
 
-#     self.execute()
+    def test_inx(self):
+        self.cpu_set_register('X', 0xfe)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe8)
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.execute()
 
+        self.assertEquals(self.cpu_register('X'), 0xff)
 
-# def test_Cpx_n_flag_set(self):
+    def test_inx_z_flag_set(self):
+        self.cpu_set_register('X', 0xff) # -1
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe8)
 
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xe0)
-#     self.memory_set(0x0101, 0x02)
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.execute()
+    def test_inx_z_flag_unset(self):
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe8)
 
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
+        self.execute()
 
+        self.assertFalse(self.cpu_flag('Z'))
 
-# def test_Cpx_n_flag_unset(self):
+    def test_inx_n_flag_set(self):
+        self.cpu_set_register('X', 0xfe) # -2
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe8)
 
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xe0)
-#     self.memory_set(0x0101, 0x01)
+        self.assertTrue(self.cpu_flag('N'))
 
-#     self.execute()
+    def test_inx_n_flag_unset(self):
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xe8)
 
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+        self.execute()
 
+        self.assertFalse(self.cpu_flag('N'))
 
-# def test_Cpx_z_flag_set(self):
 
-#     cpu.Registers.X = 0x02
-#     self.cpu_pc(0x0100)
+    # // INY
 
-#     self.memory_set(0x0100, 0xe0)
-#     self.memory_set(0x0101, 0x02)
+# def test_iny(self):
 
-#     self.execute()
-
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
-
-
-# def test_Cpx_z_flag_unset(self):
-
-#     cpu.Registers.X = 0x02
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe0)
-#     self.memory_set(0x0101, 0x01)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
-
-
-# def test_CpxC_flag_set(self):
-
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe0)
-#     self.memory_set(0x0101, 0x01)
-
-#     self.execute()
-
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
-
-
-# def test_CpxC_flag_unset(self):
-
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe0)
-#     self.memory_set(0x0101, 0x02)
-
-#     self.execute()
-
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
-
-
-# // CPY
-
-# def test_CpyImmediate(self):
-
-#     self.cpu_set_register('Y', 0xff)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xc0)
-#     self.memory_set(0x0101, 0xff)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
-
-
-# def test_CpyZeroPage(self):
-
-#     self.cpu_set_register('Y', 0xff)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xc4)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0xff)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
-
-
-# def test_CpyAbsolute(self):
-
-#     self.cpu_set_register('Y', 0xff)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xcc)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0084, 0xff)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
-
-
-# def test_Cpy_n_flag_set(self):
-
-#     self.cpu_set_register('Y', 0x01)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xc0)
-#     self.memory_set(0x0101, 0x02)
-
-#     self.execute()
-
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
-
-
-# def test_Cpy_n_flag_unset(self):
-
-#     self.cpu_set_register('Y', 0x01)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xc0)
-#     self.memory_set(0x0101, 0x01)
-
-#     self.execute()
-
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
-
-
-# def test_Cpy_z_flag_set(self):
-
-#     cpu.Registers.Y = 0x02
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xc0)
-#     self.memory_set(0x0101, 0x02)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
-
-
-# def test_Cpy_z_flag_unset(self):
-
-#     cpu.Registers.Y = 0x02
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xc0)
-#     self.memory_set(0x0101, 0x01)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
-
-
-# def test_CpyC_flag_set(self):
-
-#     self.cpu_set_register('Y', 0x01)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xc0)
-#     self.memory_set(0x0101, 0x01)
-
-#     self.execute()
-
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
-
-
-# def test_CpyC_flag_unset(self):
-
-#     self.cpu_set_register('Y', 0x01)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xc0)
-#     self.memory_set(0x0101, 0x02)
-
-#     self.execute()
-
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
-
-
-# // INC
-
-# def test_IncZeroPage(self):
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe6)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0xfe)
-
-#     self.execute()
-
-#     if cpu.Memory.Fetch(0x0084) != 0xff {
-#         t.Error("Memory is not 0xff")
-#     }
-
-
-# def test_IncZeroPageX(self):
-
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xf6)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0085, 0xfe)
-
-#     self.execute()
-
-#     if cpu.Memory.Fetch(0x0085) != 0xff {
-#         t.Error("Memory is not 0xff")
-#     }
-
-
-# def test_IncAbsolute(self):
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xee)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0084, 0xfe)
-
-#     self.execute()
-
-#     if cpu.Memory.Fetch(0x0084) != 0xff {
-#         t.Error("Memory is not 0xff")
-#     }
-
-
-# def test_IncAbsoluteX(self):
-
-#     self.cpu_set_register('X', 1)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xfe)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0085, 0xfe)
-
-#     self.execute()
-
-#     if cpu.Memory.Fetch(0x0085) != 0xff {
-#         t.Error("Memory is not 0xff")
-#     }
-
-
-# def test_Inc_z_flag_set(self):
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe6)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0xff) // -1
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
-
-
-# def test_Inc_z_flag_unset(self):
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe6)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x00)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
-
-
-# def test_Inc_n_flag_set(self):
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe6)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0xfe) // -2
-
-#     self.execute()
-
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
-
-
-# def test_Inc_n_flag_unset(self):
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe6)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x00)
-
-#     self.execute()
-
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
-
-
-# // INX
-
-# def test_Inx(self):
-
-#     cpu.Registers.X = 0xfe
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe8)
-
-#     self.execute()
-
-#     self.assertEquals(self.cpu_register('X'), 0xff)
-
-
-# def test_Inx_z_flag_set(self):
-
-#     self.cpu_set_register('X', 0xff) // -1
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe8)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
-
-
-# def test_Inx_z_flag_unset(self):
-
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe8)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
-
-
-# def test_Inx_n_flag_set(self):
-
-#     cpu.Registers.X = 0xfe // -2
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe8)
-
-#     self.execute()
-
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
-
-
-# def test_Inx_n_flag_unset(self):
-
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xe8)
-
-#     self.execute()
-
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
-
-
-# // INY
-
-# def test_Iny(self):
-
-#     cpu.Registers.Y = 0xfe // -2
+#     self.cpu_set_register('Y', 0xfe) // -2
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0xc8)
@@ -2964,194 +2351,137 @@ class CPUTest(TestCase):
 #         t.Error("Register X is not 0xff")
 #     }
 
+    def test_iny_z_flag_set(self):
+        self.cpu_set_register('Y', 0xff) # -1
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc8)
 
-# def test_Iny_z_flag_set(self):
+        self.execute()
 
-#     self.cpu_set_register('Y', 0xff) // -1
-#     self.cpu_pc(0x0100)
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.memory_set(0x0100, 0xc8)
+    def test_iny_z_flag_unset(self):
+        self.cpu_set_register('Y', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc8)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.assertFalse(self.cpu_flag('Z'))
 
+    def test_iny_n_flag_set(self):
+        self.cpu_set_register('Y', 0xfe) # -2
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc8)
 
-# def test_Iny_z_flag_unset(self):
+        self.execute()
 
-#     self.cpu_set_register('Y', 0x01)
-#     self.cpu_pc(0x0100)
+        self.assertTrue(self.cpu_flag('N'))
 
-#     self.memory_set(0x0100, 0xc8)
+    def test_iny_n_flag_unset(self):
+        self.cpu_set_register('Y', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc8)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
+        self.assertFalse(self.cpu_flag('N'))
 
+    # // DEC
 
-# def test_Iny_n_flag_set(self):
+    def test_dec_zeroPage(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc6)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x02)
 
-#     cpu.Registers.Y = 0xfe // -2
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xc8)
+        # self.assertEquals(self.memory_fetch(0x0084), 0x01)
 
-#     self.execute()
+    def test_dec_zeropage_x(self):
 
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
 
+        self.memory_set(0x0100, 0xd6)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0085, 0x02)
 
-# def test_Iny_n_flag_unset(self):
+        self.execute()
 
-#     self.cpu_set_register('Y', 0x01)
-#     self.cpu_pc(0x0100)
+        #     self.assertEquals(self.memory_fetch(0x0085), 0x01)
 
-#     self.memory_set(0x0100, 0xc8)
+    def test_dec_absolute(self):
 
-#     self.execute()
+        self.cpu_pc(0x0100)
 
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+        self.memory_set(0x0100, 0xce)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0084, 0x02)
 
+        self.execute()
 
-# // DEC
+        # self.assertEquals(self.memory_fetch(0x0084), 0x01)
 
-# def test_DecZeroPage(self):
+    def test_dec_absolute_x(self):
+        self.cpu_set_register('X', 1)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xde)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0085, 0x02)
 
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xc6)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x02)
+        # self.assertEquals(self.memory_fetch(0x0085), 0x01)
 
-#     self.execute()
+    def test_dec_z_flag_set(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc6)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x01)
 
-#     if cpu.Memory.Fetch(0x0084) != 0x01 {
-#         t.Error("Memory is not 0x01")
-#     }
+        self.execute()
 
+        self.assertTrue(self.cpu_flag('Z'))
 
-# def test_DecZeroPageX(self):
+    def test_dec_z_flag_unset(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc6)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x02)
 
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xd6)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0085, 0x02)
+        self.assertFalse(self.cpu_flag('Z'))
 
-#     self.execute()
+    def test_dec_n_flag_set(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc6)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x00)
 
-#     if cpu.Memory.Fetch(0x0085) != 0x01 {
-#         t.Error("Memory is not 0x01")
-#     }
+        self.execute()
 
+        self.assertTrue(self.cpu_flag('N'))
 
-# def test_DecAbsolute(self):
+    def test_Dec_n_flag_unset(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc6)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x01)
 
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xce)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0084, 0x02)
+        self.assertFalse(self.cpu_flag('N'))
 
-#     self.execute()
-
-#     if cpu.Memory.Fetch(0x0084) != 0x01 {
-#         t.Error("Memory is not 0x01")
-#     }
-
-
-# def test_DecAbsoluteX(self):
-
-#     self.cpu_set_register('X', 1)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xde)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0085, 0x02)
-
-#     self.execute()
-
-#     if cpu.Memory.Fetch(0x0085) != 0x01 {
-#         t.Error("Memory is not 0x01")
-#     }
-
-
-# def test_Dec_z_flag_set(self):
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xc6)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x01)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
-
-
-# def test_Dec_z_flag_unset(self):
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xc6)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x02)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
-
-
-# def test_Dec_n_flag_set(self):
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xc6)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x00)
-
-#     self.execute()
-
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
-
-
-# def test_Dec_n_flag_unset(self):
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0xc6)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x01)
-
-#     self.execute()
-
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
-
-
-# // DEX
+    # // DEX
 
 # def test_Dex(self):
 
-#     cpu.Registers.X = 0x02
+#     self.cpu_set_register('X', 0x02)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0xca)
@@ -3163,179 +2493,126 @@ class CPUTest(TestCase):
 #     }
 
 
-# def test_Dex_z_flag_set(self):
+    def test_dex_z_flag_set(self):
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xca)
 
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xca)
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.execute()
+    def test_dex_z_flag_unset(self):
+        self.cpu_set_register('X', 0x02)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xca)
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.execute()
 
+        self.assertFalse(self.cpu_flag('Z'))
 
-# def test_Dex_z_flag_unset(self):
+    def test_dex_n_flag_set(self):
+        self.cpu_set_register('X', 0x00)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xca)
 
-#     cpu.Registers.X = 0x02
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xca)
+        self.assertTrue(self.cpu_flag('N'))
 
-#     self.execute()
+    def test_dex_n_flag_unset(self):
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xca)
 
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
+        self.execute()
 
+        self.assertFalse(self.cpu_flag('N'))
 
-# def test_Dex_n_flag_set(self):
+    # // DEY
 
-#     cpu.Registers.X = 0x00
-#     self.cpu_pc(0x0100)
+    def test_dey(self):
+        self.cpu_set_register('Y', 0x02)
+        self.cpu_pc(0x0100)
 
-#     self.memory_set(0x0100, 0xca)
+        self.memory_set(0x0100, 0x88)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
+    #     if cpu.Registers.Y != 0x01 {
+    #         t.Error("Register X is not 0x01")
+    #     }
 
+    def test_dey_z_flag_set(self):
+        self.cpu_set_register('Y', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x88)
 
-# def test_Dex_n_flag_unset(self):
+        self.execute()
 
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.memory_set(0x0100, 0xca)
+    def test_dey_z_flag_unset(self):
+        self.cpu_set_register('Y', 0x02)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x88)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+        self.assertFalse(self.cpu_flag('Z'))
 
+    def test_dey_n_flag_set(self):
+        self.cpu_set_register('Y', 0x00)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x88)
 
-# // DEY
+        self.execute()
 
-# def test_Dey(self):
+        self.assertTrue(self.cpu_flag('N'))
 
-#     cpu.Registers.Y = 0x02
-#     self.cpu_pc(0x0100)
+    def test_dey_n_flag_unset(self):
+        self.cpu_set_register('Y', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x88)
 
-#     self.memory_set(0x0100, 0x88)
+        self.execute()
 
-#     self.execute()
+        self.assertFalse(self.cpu_flag('N'))
 
-#     if cpu.Registers.Y != 0x01 {
-#         t.Error("Register X is not 0x01")
-#     }
+    # // ASL
 
+    def test_asl_accumulator(self):
+        self.cpu_set_register('A', 0x02)
+        self.cpu_pc(0x0100)
 
-# def test_Dey_z_flag_set(self):
+        self.memory_set(0x0100, 0x0a)
 
-#     self.cpu_set_register('Y', 0x01)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x88)
+    #     if cpu.Registers.A != 0x04 {
+    #         t.Error("Register A is not 0x04")
+    #     }
 
-#     self.execute()
+    def test_asl_zeroPage(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x06)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x02)
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.execute()
 
+#     self.assertEquals(self.memory_fetch(0x0084), 0x04)
 
-# def test_Dey_z_flag_unset(self):
+    def test_asl_zeropage_x(self):
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x16)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0085, 0x02)
 
-#     cpu.Registers.Y = 0x02
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x88)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
-
-
-# def test_Dey_n_flag_set(self):
-
-#     cpu.Registers.Y = 0x00
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x88)
-
-#     self.execute()
-
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
-
-
-# def test_Dey_n_flag_unset(self):
-
-#     self.cpu_set_register('Y', 0x01)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x88)
-
-#     self.execute()
-
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
-
-
-# // ASL
-
-# def test_AslAccumulator(self):
-
-#     cpu.Registers.A = 0x2
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x0a)
-
-#     self.execute()
-
-#     if cpu.Registers.A != 0x04 {
-#         t.Error("Register A is not 0x04")
-#     }
-
-
-# def test_AslZeroPage(self):
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x06)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x02)
-
-#     self.execute()
-
-#     if cpu.Memory.Fetch(0x0084) != 0x04 {
-#         t.Error("Memory is not 0x04")
-#     }
-
-
-# def test_AslZeroPageX(self):
-
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x16)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0085, 0x02)
-
-#     self.execute()
-
-#     if cpu.Memory.Fetch(0x0085) != 0x04 {
-#         t.Error("Memory is not 0x04")
-#     }
+        #     self.assertEquals(self.memory_fetch(0x0085), 0x04)
 
 
 # def test_AslAbsolute(self):
@@ -3349,9 +2626,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Memory.Fetch(0x0084) != 0x04 {
-#         t.Error("Memory is not 0x04")
-#     }
+#     self.assertEquals(self.memory_fetch(0x0084), 0x04)
 
 
 # def test_AslAbsoluteX(self):
@@ -3366,251 +2641,177 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Memory.Fetch(0x0085) != 0x04 {
-#         t.Error("Memory is not 0x04")
-#     }
+#     self.assertEquals(self.memory_fetch(0x0085), 0x04)
 
+    def test_asl_c_flag_set(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x0a)
 
-# def test_AslC_flag_set(self):
+        self.execute()
 
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_pc(0x0100)
+        self.assertTrue(self.cpu_flag('C'))
 
-#     self.memory_set(0x0100, 0x0a)
+    def test_asl_c_flag_unset(self):
+        self.cpu_set_register('A', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x0a)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
+        self.assertFalse(self.cpu_flag('C'))
 
+    def test_asl_z_flag_set(self):
+        self.cpu_set_register('A', 0x00)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x0a)
 
-# def test_AslC_flag_unset(self):
+        self.execute()
 
-#     self.cpu_set_register('A', 0x01)
-#     self.cpu_pc(0x0100)
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.memory_set(0x0100, 0x0a)
+    def test_asl_z_flag_unset(self):
+        self.cpu_set_register('A', 0x02)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x0a)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
+        self.assertFalse(self.cpu_flag('Z'))
 
+    def test_asl_n_flag_set(self):
+        self.cpu_set_register('A', 0xfe)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x0a)
 
-# def test_Asl_z_flag_set(self):
+        self.execute()
 
-#     cpu.Registers.A = 0x00
-#     self.cpu_pc(0x0100)
+        self.assertTrue(self.cpu_flag('N'))
 
-#     self.memory_set(0x0100, 0x0a)
+    def test_asl_n_flag_unset(self):
+        self.cpu_set_register('A', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x0a)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+        self.assertFalse(self.cpu_flag('N'))
 
+    # // LSR
 
-# def test_Asl_z_flag_unset(self):
+    # def test_lsrAccumulator(self):
 
-#     cpu.Registers.A = 0x02
-#     self.cpu_pc(0x0100)
+    #     cpu.Registers.A = 0x2
+    #     self.cpu_pc(0x0100)
 
-#     self.memory_set(0x0100, 0x0a)
+    #     self.memory_set(0x0100, 0x4a)
 
-#     self.execute()
+    #     self.execute()
 
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
+    #     if cpu.Registers.A != 0x01 {
+    #         t.Error("Register A is not 0x01")
+    #     }
 
 
-# def test_Asl_n_flag_set(self):
+    # def test_lsrZeroPage(self):
 
-#     cpu.Registers.A = 0xfe
-#     self.cpu_pc(0x0100)
+    #     self.cpu_pc(0x0100)
 
-#     self.memory_set(0x0100, 0x0a)
+    #     self.memory_set(0x0100, 0x46)
+    #     self.memory_set(0x0101, 0x84)
+    #     self.memory_set(0x0084, 0x02)
 
-#     self.execute()
+    #     self.execute()
 
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
+    #     self.assertEquals(self.memory_fetch(0x0084), 0x01)
 
+    def test_lsr_zeropage_x(self):
+        self.cpu_set_register('X', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x56)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0085, 0x02)
 
-# def test_Asl_n_flag_unset(self):
+        self.execute()
 
-#     self.cpu_set_register('A', 0x01)
-#     self.cpu_pc(0x0100)
+        self.assertEquals(self.memory_fetch(0x0085), 0x01)
 
-#     self.memory_set(0x0100, 0x0a)
+    def test_lsr_absolute(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x4e)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0084, 0x02)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+        self.assertEquals(self.memory_fetch(0x0084), 0x01)
 
+    def test_lsr_absolute_x(self):
+        self.cpu_set_register('X', 1)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x5e)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0085, 0x02)
 
-# // LSR
+        self.execute()
 
-# def test_LsrAccumulator(self):
+        self.assertEquals(self.memory_fetch(0x0085), 0x01)
 
-#     cpu.Registers.A = 0x2
-#     self.cpu_pc(0x0100)
+    def test_lsr_c_flag_set(self):
+        self.cpu_set_register('A', 0xff)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x4a)
 
-#     self.memory_set(0x0100, 0x4a)
+        self.execute()
 
-#     self.execute()
+        self.assertTrue(self.cpu_flag('C'))
 
-#     if cpu.Registers.A != 0x01 {
-#         t.Error("Register A is not 0x01")
-#     }
+    def test_lsr_c_flag_unset(self):
+        self.cpu_set_register('A', 0x10)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x4a)
 
+        self.execute()
 
-# def test_LsrZeroPage(self):
+        self.assertFalse(self.cpu_flag('C'))
 
-#     self.cpu_pc(0x0100)
+    def test_lsr_z_flag_set(self):
+        self.cpu_set_register('A', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x4a)
 
-#     self.memory_set(0x0100, 0x46)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0084, 0x02)
+        self.execute()
 
-#     self.execute()
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     if cpu.Memory.Fetch(0x0084) != 0x01 {
-#         t.Error("Memory is not 0x01")
-#     }
+    def test_lsr_z_flag_unset(self):
+        self.cpu_set_register('A', 0x02)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x4a)
 
+        self.execute()
 
-# def test_LsrZeroPageX(self):
+        self.assertFalse(self.cpu_flag('Z'))
 
-#     cpu.Registers.X = 0x01
-#     self.cpu_pc(0x0100)
 
-#     self.memory_set(0x0100, 0x56)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0085, 0x02)
+    # TODO: def test_lsr_n_flag_set(self): }
+    # TODO: not tested, N bit always set to 0
 
-#     self.execute()
+    def test_lsr_n_flag_unset(self):
+        self.cpu_set_register('A', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x4a)
 
-#     if cpu.Memory.Fetch(0x0085) != 0x01 {
-#         t.Error("Memory is not 0x01")
-#     }
+        self.execute()
 
+        self.assertFalse(self.cpu_flag('N'))
 
-# def test_LsrAbsolute(self):
 
-#     self.cpu_pc(0x0100)
+    # // ROL
 
-#     self.memory_set(0x0100, 0x4e)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0084, 0x02)
-
-#     self.execute()
-
-#     if cpu.Memory.Fetch(0x0084) != 0x01 {
-#         t.Error("Memory is not 0x01")
-#     }
-
-
-# def test_LsrAbsoluteX(self):
-
-#     self.cpu_set_register('X', 1)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x5e)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0085, 0x02)
-
-#     self.execute()
-
-#     if cpu.Memory.Fetch(0x0085) != 0x01 {
-#         t.Error("Memory is not 0x01")
-#     }
-
-
-# def test_LsrC_flag_set(self):
-
-#     self.cpu_set_register('A', 0xff)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x4a)
-
-#     self.execute()
-
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
-
-
-# def test_LsrC_flag_unset(self):
-
-#     cpu.Registers.A = 0x10
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x4a)
-
-#     self.execute()
-
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
-
-
-# def test_Lsr_z_flag_set(self):
-
-#     self.cpu_set_register('A', 0x01)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x4a)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
-
-
-# def test_Lsr_z_flag_unset(self):
-
-#     cpu.Registers.A = 0x02
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x4a)
-
-#     self.execute()
-
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
-
-
-# // def test_Lsr_n_flag_set(self): }
-# // not tested, N bit always set to 0
-
-# def test_Lsr_n_flag_unset(self):
-
-#     self.cpu_set_register('A', 0x01)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x4a)
-
-#     self.execute()
-
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
-
-
-# // ROL
-
-# def test_RolAccumulator(self):
+# def test_rol_Accumulator(self):
 
 #     cpu.Registers.P |= C
 #     cpu.Registers.A = 0x2
@@ -3625,7 +2826,7 @@ class CPUTest(TestCase):
 #     }
 
 
-# def test_RolZeroPage(self):
+# def test_rol_ZeroPage(self):
 
 #     cpu.Registers.P |= C
 #     self.cpu_pc(0x0100)
@@ -3636,15 +2837,13 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Memory.Fetch(0x0084) != 0x05 {
-#         t.Error("Memory is not 0x05")
-#     }
+#     self.assertEquals(self.memory_fetch(0x0084), 0x05)
 
 
-# def test_RolZeroPageX(self):
+# def test_rol_ZeroPageX(self):
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.X = 0x01
+#     self.cpu_set_register('X', 0x01)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x36)
@@ -3653,12 +2852,10 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Memory.Fetch(0x0085) != 0x05 {
-#         t.Error("Memory is not 0x05")
-#     }
+#     self.assertEquals(self.memory_fetch(0x0085), 0x05)
 
 
-# def test_RolAbsolute(self):
+# def test_rol_Absolute(self):
 
 #     cpu.Registers.P |= C
 #     self.cpu_pc(0x0100)
@@ -3670,12 +2867,10 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Memory.Fetch(0x0084) != 0x05 {
-#         t.Error("Memory is not 0x05")
-#     }
+#     self.assertEquals(self.memory_fetch(0x0084), 0x05)
 
 
-# def test_RolAbsoluteX(self):
+# def test_rol_AbsoluteX(self):
 
 #     cpu.Registers.P |= C
 #     self.cpu_set_register('X', 1)
@@ -3688,26 +2883,22 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Memory.Fetch(0x0085) != 0x05 {
-#         t.Error("Memory is not 0x05")
-#     }
+#     self.assertEquals(self.memory_fetch(0x0085), 0x05)
 
 
-# def test_RolC_flag_set(self):
+# def test_rol_C_flag_set(self):
 
-#     cpu.Registers.A = 0x80
+#     self.cpu_set_register('A', 0x80)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x2a)
 
 #     self.execute()
 
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
+# self.assertTrue(self.cpu_flag('C'))
 
 
-# def test_RolC_flag_unset(self):
+# def test_rol_C_flag_unset(self):
 
 #     self.cpu_set_register('A', 0x01)
 #     self.cpu_pc(0x0100)
@@ -3716,54 +2907,46 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('C'))
 
 
-# def test_Rol_z_flag_set(self):
+# def test_rol_z_flag_set(self):
 
-#     cpu.Registers.A = 0x00
+#     self.cpu_set_register('A', 0x00)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x2a)
 
 #     self.execute()
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+# self.assertTrue(self.cpu_flag('Z'))
 
 
-# def test_Rol_z_flag_unset(self):
+# def test_rol_z_flag_unset(self):
 
-#     cpu.Registers.A = 0x02
+#     self.cpu_set_register('A', 0x02)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x2a)
 
 #     self.execute()
 
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('Z'))
 
 
-# def test_Rol_n_flag_set(self):
+# def test_rol_n_flag_set(self):
 
-#     cpu.Registers.A = 0xfe
+#     self.cpu_set_register('A', 0xfe)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x2a)
 
 #     self.execute()
 
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
+# self.assertTrue(self.cpu_flag('N'))
 
 
-# def test_Rol_n_flag_unset(self):
+# def test_rol_n_flag_unset(self):
 
 #     self.cpu_set_register('A', 0x01)
 #     self.cpu_pc(0x0100)
@@ -3772,9 +2955,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('N'))
 
 
 # // ROR
@@ -3782,7 +2963,7 @@ class CPUTest(TestCase):
 # def test_RorAccumulator(self):
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.A = 0x08
+#     self.cpu_set_register('A', 0x08)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x6a)
@@ -3805,15 +2986,13 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Memory.Fetch(0x0084) != 0x84 {
-#         t.Error("Memory is not 0x84")
-#     }
+#     self.assertEquals(self.memory_fetch(0x0084), 0x84)
 
 
 # def test_RorZeroPageX(self):
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.X = 0x01
+#     self.cpu_set_register('X', 0x01)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x76)
@@ -3822,9 +3001,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Memory.Fetch(0x0085) != 0x84 {
-#         t.Error("Memory is not 0x84")
-#     }
+#     self.assertEquals(self.memory_fetch(0x0085), 0x84)
 
 
 # def test_RorAbsolute(self):
@@ -3839,9 +3016,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Memory.Fetch(0x0084) != 0x84 {
-#         t.Error("Memory is not 0x84")
-#     }
+#     self.assertEquals(self.memory_fetch(0x0084), 0x84)
 
 
 # def test_RorAbsoluteX(self):
@@ -3857,9 +3032,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Memory.Fetch(0x0085) != 0x84 {
-#         t.Error("Memory is not 0x84")
-#     }
+#     self.assertEquals(self.memory_fetch(0x0085), 0x84)
 
 
 # def test_RorC_flag_set(self):
@@ -3871,66 +3044,56 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
+# self.assertTrue(self.cpu_flag('C'))
 
 
 # def test_RorC_flag_unset(self):
 
-#     cpu.Registers.A = 0x10
+#     self.cpu_set_register('A', 0x10)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x6a)
 
 #     self.execute()
 
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('C'))
 
 
 # def test_Ror_z_flag_set(self):
 
-#     cpu.Registers.A = 0x00
+#     self.cpu_set_register('A', 0x00)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x6a)
 
 #     self.execute()
 
-#     if cpu.Registers.P&Z == 0 {
-#         t.Error("Z flag is not set")
-#     }
+# self.assertTrue(self.cpu_flag('Z'))
 
 
 # def test_Ror_z_flag_unset(self):
 
-#     cpu.Registers.A = 0x02
+#     self.cpu_set_register('A', 0x02)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x6a)
 
 #     self.execute()
 
-#     if cpu.Registers.P&Z != 0 {
-#         t.Error("Z flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('Z'))
 
 
 # def test_Ror_n_flag_set(self):
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.A = 0xfe
+#     self.cpu_set_register('A', 0xfe)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x6a)
 
 #     self.execute()
 
-#     if cpu.Registers.P&N == 0 {
-#         t.Error("N flag is not set")
-#     }
+# self.assertTrue(self.cpu_flag('N'))
 
 
 # def test_Ror_n_flag_unset(self):
@@ -3943,9 +3106,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&N != 0 {
-#         t.Error("N flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('N'))
 
 
 # // JMP
@@ -3998,13 +3159,9 @@ class CPUTest(TestCase):
 #         t.Error("Register PC is not 0x01ff")
 #     }
 
-#     if cpu.Memory.Fetch(0x01fd) != 0x01 {
-#         t.Error("Memory is not 0x01")
-#     }
+#     self.assertEquals(self.memory_fetch(0x01fd), 0x01)
 
-#     if cpu.Memory.Fetch(0x01fc) != 0x02 {
-#         t.Error("Memory is not 0x02")
-#     }
+#     self.assertEquals(self.memory_fetch(0x01fc), 0x02)
 
 
 
@@ -4328,9 +3485,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('C'))
 
 #     cpu.Registers.P |= C
 #     self.cpu_pc(0x0100)
@@ -4339,9 +3494,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&C != 0 {
-#         t.Error("C flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('C'))
 
 
 # // CLD
@@ -4355,9 +3508,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&D != 0 {
-#         t.Error("D flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('D'))
 
 #     cpu.Registers.P |= D
 #     self.cpu_pc(0x0100)
@@ -4366,9 +3517,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&D != 0 {
-#         t.Error("D flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('D'))
 
 
 # // CLI
@@ -4382,9 +3531,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&I != 0 {
-#         t.Error("I flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('I'))
 
 #     cpu.Registers.P |= I
 #     self.cpu_pc(0x0100)
@@ -4393,9 +3540,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&I != 0 {
-#         t.Error("I flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('I'))
 
 
 # // CLV
@@ -4409,9 +3554,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&V != 0 {
-#         t.Error("V flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('V'))
 
 #     cpu.Registers.P |= V
 #     self.cpu_pc(0x0100)
@@ -4420,9 +3563,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&V != 0 {
-#         t.Error("V flag is set")
-#     }
+# self.assertFalse(self.cpu_flag('V'))
 
 
 # // SEC
@@ -4436,9 +3577,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
+# self.assertTrue(self.cpu_flag('C'))
 
 #     cpu.Registers.P |= C
 #     self.cpu_pc(0x0100)
@@ -4447,9 +3586,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&C == 0 {
-#         t.Error("C flag is not set")
-#     }
+# self.assertTrue(self.cpu_flag('C'))
 
 
 # // SED
@@ -4463,9 +3600,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&D == 0 {
-#         t.Error("D flag is not set")
-#     }
+# self.assertTrue(self.cpu_flag('D'))
 
 #     cpu.Registers.P |= D
 #     self.cpu_pc(0x0100)
@@ -4474,43 +3609,37 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P&D == 0 {
-#         t.Error("D flag is not set")
-#     }
+# self.assertTrue(self.cpu_flag('D'))
 
 
-# // SEI
+    # // SEI
 
-# def test_Sei(self):
+    @skip('TODO')
+    def test_Sei(self):
 
-#     cpu.Registers.P &^= I
-#     self.cpu_pc(0x0100)
+        # cpu.Registers.P &^= I
+        self.cpu_pc(0x0100)
 
-#     self.memory_set(0x0100, 0x78)
+        self.memory_set(0x0100, 0x78)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.P&I == 0 {
-#         t.Error("I flag is not set")
-#     }
+        self.assertTrue(self.cpu_flag('I'))
 
-#     cpu.Registers.P |= I
-#     self.cpu_pc(0x0100)
+        # cpu.Registers.P |= I
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x78)
 
-#     self.memory_set(0x0100, 0x78)
+        self.execute()
 
-#     self.execute()
-
-#     if cpu.Registers.P&I == 0 {
-#         t.Error("I flag is not set")
-#     }
+        self.assertTrue(self.cpu_flag('I'))
 
 
 # // BRK
 
 # def test_Brk(self):
 
-#     cpu.Registers.P = 0xff & (^B)
+#     self.cpu_set_register('P', 0xff) & (^B)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x00)
@@ -4559,7 +3688,7 @@ class CPUTest(TestCase):
 
 #     cpu.DisableDecimalMode()
 
-#     cpu.Registers.P = 0x24
+#     self.cpu_set_register('P', 0x24)
 #     cpu.Registers.SP = 0xfd
 #     cpu.Registers.PC = 0xc000
 
@@ -4581,20 +3710,16 @@ class CPUTest(TestCase):
 #         }
 #     }
 
-#     if cpu.Memory.Fetch(0x0002) != 0x00 {
-#         t.Error("Memory 0x0002 is not 0x00")
-#     }
+#     self.assertEquals(self.memory_fetch(0x0002), 0x00)
 
-#     if cpu.Memory.Fetch(0x0003) != 0x00 {
-#         t.Error("Memory 0x0003 is not 0x00")
-#     }
+#     self.assertEquals(self.memory_fetch(0x0003), 0x00)
 
 
 # // Irq
 
 # def test_Irq(self):
 
-#     cpu.Registers.P = 0xfb
+#     self.cpu_set_register('P', 0xfb)
 #     self.cpu_pc(0x0100)
 
 #     cpu.Interrupt(Irq, true)
@@ -4624,7 +3749,7 @@ class CPUTest(TestCase):
 
 # def test_Nmi(self):
 
-#     cpu.Registers.P = 0xff
+#     self.cpu_set_register('P', 0xff)
 #     self.cpu_pc(0x0100)
 
 #     cpu.Interrupt(Nmi, true)
@@ -4650,7 +3775,7 @@ class CPUTest(TestCase):
 #     }
 
 
-# // Rst
+    # // Rst
 
 # def test_Rst(self):
 
@@ -4669,5 +3794,3 @@ class CPUTest(TestCase):
 #     if cpu.GetInterrupt(Rst) {
 #         t.Error("Interrupt is set")
 #     }
-
-
