@@ -3253,14 +3253,15 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('D'))
 
-#     self.cpu_set_flag('D')
-#     self.cpu_pc(0x0100)
+        return # TODO
+        self.cpu_set_flag('D')
+        self.cpu_pc(0x0100)
 
-#     self.memory_set(0x0100, 0xd8)
+        self.memory_set(0x0100, 0xd8)
 
-#     self.execute()
+        self.execute()
 
-#     self.assertFalse(self.cpu_flag('D'))
+        self.assertFalse(self.cpu_flag('D'))
 
     # // CLI
 
@@ -3426,76 +3427,75 @@ class CPUTest(TestCase):
 #     self.assertEquals(self.memory_fetch(0x0003), 0x00)
 
 
-# // Irq
+    # // Irq
 
-# def test_Irq(self):
+    @skip('TODO')
+    def test_irq(self):
+        self.cpu_set_register('P', 0xfb)
+        self.cpu_pc(0x0100)
+        cpu.Interrupt(Irq, true)
+        self.memory_set(0xfffe, 0x40)
+        self.memory_set(0xffff, 0x01)
 
-#     self.cpu_set_register('P', 0xfb)
-#     self.cpu_pc(0x0100)
+        cpu.PerformInterrupts()
 
-#     cpu.Interrupt(Irq, true)
-#     self.memory_set(0xfffe, 0x40)
-#     self.memory_set(0xffff, 0x01)
+        # if cpu.pull() != 0xfb {
+        #     t.Error("Memory is not 0xfb")
+        # }
 
-#     cpu.PerformInterrupts()
+        # if cpu.pull16() != 0x0100 {
+        #     t.Error("Memory is not 0x0100")
+        # }
 
-#     if cpu.pull() != 0xfb {
-#         t.Error("Memory is not 0xfb")
-#     }
+        self.assertEquals(self.cpu_register('PC'), 0x0140)
 
-#     if cpu.pull16() != 0x0100 {
-#         t.Error("Memory is not 0x0100")
-#     }
-
-#     self.assertEquals(self.cpu_register('PC'), 0x0140)
-
-#     if cpu.GetInterrupt(Irq) {
-#         t.Error("Interrupt is set")
-#     }
+        # if cpu.GetInterrupt(Irq) {
+        #     t.Error("Interrupt is set")
+        # }
 
 
-# // Nmi
+    # // Nmi
 
-# def test_Nmi(self):
+    @skip('TODO')
+    def test_nmi(self):
+        self.cpu_set_register('P', 0xff)
+        self.cpu_pc(0x0100)
+        cpu.Interrupt(Nmi, true)
+        self.memory_set(0xfffa, 0x40)
+        self.memory_set(0xfffb, 0x01)
 
-#     self.cpu_set_register('P', 0xff)
-#     self.cpu_pc(0x0100)
+        cpu.PerformInterrupts()
 
-#     cpu.Interrupt(Nmi, true)
-#     self.memory_set(0xfffa, 0x40)
-#     self.memory_set(0xfffb, 0x01)
+        # if cpu.pull() != 0xff {
+        #     t.Error("Memory is not 0xff")
+        # }
 
-#     cpu.PerformInterrupts()
+        # if cpu.pull16() != 0x0100 {
+        #     t.Error("Memory is not 0x0100")
+        # }
 
-#     if cpu.pull() != 0xff {
-#         t.Error("Memory is not 0xff")
-#     }
+        self.assertEquals(self.cpu_register('PC'), 0x0140)
 
-#     if cpu.pull16() != 0x0100 {
-#         t.Error("Memory is not 0x0100")
-#     }
-
-#     self.assertEquals(self.cpu_register('PC'), 0x0140)
-
-#     if cpu.GetInterrupt(Nmi) {
-#         t.Error("Interrupt is set")
-#     }
+        # if cpu.GetInterrupt(Nmi) {
+        #     t.Error("Interrupt is set")
+        # }
 
 
     # // Rst
 
-# def test_Rst(self):
+    @skip('TODO')
+    def test_rst(self):
 
-#     self.cpu_pc(0x0100)
+        self.cpu_pc(0x0100)
 
-#     cpu.Interrupt(Rst, true)
-#     self.memory_set(0xfffc, 0x40)
-#     self.memory_set(0xfffd, 0x01)
+        cpu.Interrupt(Rst, true)
+        self.memory_set(0xfffc, 0x40)
+        self.memory_set(0xfffd, 0x01)
 
-#     cpu.PerformInterrupts()
+        # cpu.PerformInterrupts()
 
-#     self.assertEquals(self.cpu_register('PC'), 0x0140)
+        self.assertEquals(self.cpu_register('PC'), 0x0140)
 
-#     if cpu.GetInterrupt(Rst) {
-#         t.Error("Interrupt is set")
-#     }
+        # if cpu.GetInterrupt(Rst) {
+        #     t.Error("Interrupt is set")
+        # }
