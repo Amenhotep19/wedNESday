@@ -1470,7 +1470,6 @@ class CPUTest(TestCase):
         self.cpu_set_flag('C')
         self.cpu_set_register('A', 0xfe) # -2
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x69)
         self.memory_set(0x0101, 0x01) # +1
 
@@ -2330,10 +2329,8 @@ class CPUTest(TestCase):
         self.assertEquals(self.memory_fetch(0x0084), 0x01)
 
     def test_dec_zeropage_x(self):
-
         self.cpu_set_register('X', 0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xd6)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0085, 0x02)
@@ -2343,9 +2340,7 @@ class CPUTest(TestCase):
         self.assertEquals(self.memory_fetch(0x0085), 0x01)
 
     def test_dec_absolute(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xce)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -3113,7 +3108,6 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_register('PC'), 0x0100)
 
-
     # // BEQ
 
     def test_beq(self):
@@ -3146,9 +3140,9 @@ class CPUTest(TestCase):
         self.execute()
 
         self.assertEquals(self.cpu_register('PC'), 0x0104)
+
         self.cpu_set_flag('N')
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x30)
         self.memory_set(0x0101, 0xfe) # -2
 
@@ -3395,14 +3389,13 @@ class CPUTest(TestCase):
 
         self.assertEquals(self.cpu_pull_word(), 0x0102)
 
-#     self.assertEquals(self.cpu_register('PC'), 0x01ff)
+        self.assertEquals(self.cpu_register('PC'), 0x01ff)
 
 
     # // RTI
 
     @skip('TODO')
     def test_rti(self):
-
         self.cpu_pc(0x0100)
         self.cpu_push_word(0x0102)
         self.cpu_push_byte(0x03)
@@ -3411,7 +3404,6 @@ class CPUTest(TestCase):
         self.execute()
 
         self.assertEquals(self.cpu_register('P'), 0x23)
-
         self.assertEquals(self.cpu_register('PC'), 0x0102)
 
 
