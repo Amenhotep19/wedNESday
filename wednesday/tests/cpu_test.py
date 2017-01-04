@@ -3042,51 +3042,37 @@ class CPUTest(TestCase):
         self.assertEquals(self.cpu_register('PC'), 0x0103)
 
 
-# // BCC
+    # // BCC
 
-# def test_Bcc(self):
+    def test_bcc(self):
+        self.cpu_set_flag('C')
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x90)
 
-#     self.cpu_set_flag('C')
-#     self.cpu_pc(0x0100)
+        cycles, _ = self.execute()
 
-#     self.memory_set(0x0100, 0x90)
+        self.assertEquals(cycles, 2)
+        self.assertEquals(self.cpu_register('PC'), 0x0102)
 
-#     cycles, _ = self.execute()
+        self.cpu_unset_flag('C')
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x90)
+        self.memory_set(0x0101, 0x02) # +2
 
-#     if cycles != 2 {
-#         t.Error("Cycles is not 2")
-#     }
+        cycles, _ = self.execute()
 
-#     self.assertEquals(self.cpu_register('PC'), 0x0102)
+        # TODO: self.assertEquals(cycles, 3)
+        self.assertEquals(self.cpu_register('PC'), 0x0104)
 
-#     self.cpu_unset_flag('C')
-#     self.cpu_pc(0x0100)
+        self.cpu_unset_flag('C')
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x90)
+        self.memory_set(0x0101, 0xfd) # -3
 
-#     self.memory_set(0x0100, 0x90)
-#     self.memory_set(0x0101, 0x02) // +2
+        cycles, _ = self.execute()
 
-#     cycles, _ = self.execute()
-
-#     if cycles != 3 {
-#         t.Error("Cycles is not 3")
-#     }
-
-#     self.assertEquals(self.cpu_register('PC'), 0x0104)
-
-#     self.cpu_unset_flag('C')
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x90)
-#     self.memory_set(0x0101, 0xfd) // -3
-
-#     cycles, _ = self.execute()
-
-#     if cycles != 4 {
-#         t.Error("Cycles is not 4")
-#     }
-
-#     self.assertEquals(self.cpu_register('PC'), 0x00ff)
-
+        # TODO: self.assertEquals(cycles, 4)
+        self.assertEquals(self.cpu_register('PC'), 0x00ff)
 
     # // BCS
 
