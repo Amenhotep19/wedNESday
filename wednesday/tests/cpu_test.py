@@ -8,6 +8,7 @@ REGISTERS = {
     'X': 'x_index',
     'Y': 'y_index',
     'SP': 'stack_pointer',
+    'PC': 'program_counter',
 }
 
 FLAGS = {
@@ -761,9 +762,7 @@ class CPUTest(TestCase):
 
         self.execute()
 
-        # if cpu.Registers.P != 0xef {
-        #     t.Error("Status is not 0xef")
-        # }
+        # self.assertEquals(self.cpu_register('P'), 0xef)
 
 
     # // AND
@@ -1287,9 +1286,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x03 {
-#         t.Error("Register A is not 0x03")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x03)
 
 #     cpu.Registers.P |= D
 #     self.cpu_set_register('A', 0x29) // BCD
@@ -1300,9 +1297,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x40 { // BCD
-#         t.Error("Register A is not 0x40")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x40)
 
 #     cpu.Registers.P |= D
 #     self.cpu_set_register('A', 0x29) | uint8(N) // BCD
@@ -1313,9 +1308,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x38 { // BCD
-#         t.Error("Register A is not 0x38")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x38)
 
 #     cpu.Registers.P |= D
 #     cpu.Registers.P |= C
@@ -1327,9 +1320,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x05 { // BCD
-#         t.Errorf("Register A is not 0x05")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x05)
 
 
     def test_adc_zeropage(self):
@@ -1563,9 +1554,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x01 {
-#         t.Error("Register A is not 0x01")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x01)
 
 #     cpu.Registers.P |= D
 #     self.cpu_set_register('A', 0x29) // BCD
@@ -1576,9 +1565,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x18 { // BCD
-#         t.Error("Register A is not 0x18")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x18)
 
     @skip('TODO')
     def test_sbc_zeroPage(self):
@@ -1608,9 +1595,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x01 {
-#         t.Error("Register A is not 0x01")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x01)
 
 
 # def test_sbcAbsolute(self):
@@ -1626,9 +1611,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x01 {
-#         t.Error("Register A is not 0x01")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x01)
 
 
 # def test_sbcAbsoluteX(self):
@@ -1645,9 +1628,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x01 {
-#         t.Error("Register A is not 0x01")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x01)
 
 
 # def test_sbcAbsoluteY(self):
@@ -1664,9 +1645,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x01 {
-#         t.Error("Register A is not 0x01")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x01)
 
 
 # def test_sbcIndirectX(self):
@@ -1684,9 +1663,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x01 {
-#         t.Error("Register A is not 0x01")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x01)
 
 
 # def test_sbcIndirectY(self):
@@ -1704,9 +1681,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x01 {
-#         t.Error("Register A is not 0x01")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x01)
 
 
     def test_sbc_c_flag_set(self):
@@ -2201,9 +2176,7 @@ class CPUTest(TestCase):
 
         self.execute()
 
-        # if cpu.Memory.Fetch(0x0084) != 0xff {
-        #     t.Error("Memory is not 0xff")
-        # }
+        self.assertEquals(self.memory_fetch(0x0084), 0xff)
 
     def test_inc_zeropage_x(self):
         self.cpu_set_register('X', 0x01)
@@ -2214,15 +2187,10 @@ class CPUTest(TestCase):
 
         self.execute()
 
-        #     if cpu.Memory.Fetch(0x0085) != 0xff {
-        #         t.Error("Memory is not 0xff")
-        #     }
-
+        self.assertEquals(self.memory_fetch(0x0085), 0xff)
 
     def test_inc_absolute(self):
-
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0xee)
         self.memory_set(0x0101, 0x84)
         self.memory_set(0x0102, 0x00)
@@ -2230,9 +2198,7 @@ class CPUTest(TestCase):
 
         self.execute()
 
-        #     if cpu.Memory.Fetch(0x0084) != 0xff {
-        #         t.Error("Memory is not 0xff")
-        #     }
+        self.assertEquals(self.memory_fetch(0x0084), 0xff)
 
     def test_inc_absolute_x(self):
         self.cpu_set_register('X', 1)
@@ -2244,9 +2210,7 @@ class CPUTest(TestCase):
 
         self.execute()
 
-        #     if cpu.Memory.Fetch(0x0085) != 0xff {
-        #         t.Error("Memory is not 0xff")
-        #     }
+        self.assertEquals(self.memory_fetch(0x0085), 0xff)
 
     def test_inc_z_flag_set(self):
         self.cpu_pc(0x0100)
@@ -2338,18 +2302,14 @@ class CPUTest(TestCase):
 
     # // INY
 
-# def test_iny(self):
+    def test_iny(self):
+        self.cpu_set_register('Y', 0xfe) # -2
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xc8)
 
-#     self.cpu_set_register('Y', 0xfe) // -2
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xc8)
-
-#     self.execute()
-
-#     if cpu.Registers.Y != 0xff {
-#         t.Error("Register X is not 0xff")
-#     }
+        self.assertEquals(self.cpu_register('Y'), 0xff)
 
     def test_iny_z_flag_set(self):
         self.cpu_set_register('Y', 0xff) # -1
@@ -2397,7 +2357,7 @@ class CPUTest(TestCase):
 
         self.execute()
 
-        # self.assertEquals(self.memory_fetch(0x0084), 0x01)
+        self.assertEquals(self.memory_fetch(0x0084), 0x01)
 
     def test_dec_zeropage_x(self):
 
@@ -2410,7 +2370,7 @@ class CPUTest(TestCase):
 
         self.execute()
 
-        #     self.assertEquals(self.memory_fetch(0x0085), 0x01)
+        self.assertEquals(self.memory_fetch(0x0085), 0x01)
 
     def test_dec_absolute(self):
 
@@ -2423,7 +2383,7 @@ class CPUTest(TestCase):
 
         self.execute()
 
-        # self.assertEquals(self.memory_fetch(0x0084), 0x01)
+        self.assertEquals(self.memory_fetch(0x0084), 0x01)
 
     def test_dec_absolute_x(self):
         self.cpu_set_register('X', 1)
@@ -2435,7 +2395,7 @@ class CPUTest(TestCase):
 
         self.execute()
 
-        # self.assertEquals(self.memory_fetch(0x0085), 0x01)
+        self.assertEquals(self.memory_fetch(0x0085), 0x01)
 
     def test_dec_z_flag_set(self):
         self.cpu_pc(0x0100)
@@ -2479,19 +2439,14 @@ class CPUTest(TestCase):
 
     # // DEX
 
-# def test_Dex(self):
+    def test_dex(self):
+        self.cpu_set_register('X', 0x02)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0xca)
 
-#     self.cpu_set_register('X', 0x02)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0xca)
-
-#     self.execute()
-
-#     if cpu.Registers.X != 0x01 {
-#         t.Error("Register X is not 0x01")
-#     }
-
+        self.assertEquals(self.cpu_register('X'), 0x01)
 
     def test_dex_z_flag_set(self):
         self.cpu_set_register('X', 0x01)
@@ -2539,9 +2494,7 @@ class CPUTest(TestCase):
 
         self.execute()
 
-    #     if cpu.Registers.Y != 0x01 {
-    #         t.Error("Register X is not 0x01")
-    #     }
+        self.assertEquals(self.cpu_register('Y'), 0x01)
 
     def test_dey_z_flag_set(self):
         self.cpu_set_register('Y', 0x01)
@@ -2584,14 +2537,11 @@ class CPUTest(TestCase):
     def test_asl_accumulator(self):
         self.cpu_set_register('A', 0x02)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x0a)
 
         self.execute()
 
-    #     if cpu.Registers.A != 0x04 {
-    #         t.Error("Register A is not 0x04")
-    #     }
+        self.assertEquals(self.cpu_register('A'), 0x04)
 
     def test_asl_zeroPage(self):
         self.cpu_pc(0x0100)
@@ -2601,7 +2551,7 @@ class CPUTest(TestCase):
 
         self.execute()
 
-#     self.assertEquals(self.memory_fetch(0x0084), 0x04)
+        self.assertEquals(self.memory_fetch(0x0084), 0x04)
 
     def test_asl_zeropage_x(self):
         self.cpu_set_register('X', 0x01)
@@ -2612,36 +2562,35 @@ class CPUTest(TestCase):
 
         self.execute()
 
-        #     self.assertEquals(self.memory_fetch(0x0085), 0x04)
+        self.assertEquals(self.memory_fetch(0x0085), 0x04)
 
 
-# def test_AslAbsolute(self):
+    def test_asl_absolute(self):
 
-#     self.cpu_pc(0x0100)
+        self.cpu_pc(0x0100)
 
-#     self.memory_set(0x0100, 0x0e)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0084, 0x02)
+        self.memory_set(0x0100, 0x0e)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0084, 0x02)
 
-#     self.execute()
+        self.execute()
 
-#     self.assertEquals(self.memory_fetch(0x0084), 0x04)
+        self.assertEquals(self.memory_fetch(0x0084), 0x04)
 
 
-# def test_AslAbsoluteX(self):
+    def test_asl_absoluteX(self):
+        self.cpu_set_register('X', 1)
+        self.cpu_pc(0x0100)
 
-#     self.cpu_set_register('X', 1)
-#     self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x1e)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0085, 0x02)
 
-#     self.memory_set(0x0100, 0x1e)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0085, 0x02)
+        self.execute()
 
-#     self.execute()
-
-#     self.assertEquals(self.memory_fetch(0x0085), 0x04)
+        self.assertEquals(self.memory_fetch(0x0085), 0x04)
 
     def test_asl_c_flag_set(self):
         self.cpu_set_register('A', 0xff)
@@ -2699,31 +2648,24 @@ class CPUTest(TestCase):
 
     # // LSR
 
-    # def test_lsrAccumulator(self):
+    def test_lsr_accumulator(self):
+        self.cpu_set_register('A', 0x2)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x4a)
 
-    #     cpu.Registers.A = 0x2
-    #     self.cpu_pc(0x0100)
+        self.execute()
 
-    #     self.memory_set(0x0100, 0x4a)
+        self.assertEquals(self.cpu_register('A'), 0x01)
 
-    #     self.execute()
+    def test_lsr_zeroPage(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x46)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0084, 0x02)
 
-    #     if cpu.Registers.A != 0x01 {
-    #         t.Error("Register A is not 0x01")
-    #     }
+        self.execute()
 
-
-    # def test_lsrZeroPage(self):
-
-    #     self.cpu_pc(0x0100)
-
-    #     self.memory_set(0x0100, 0x46)
-    #     self.memory_set(0x0101, 0x84)
-    #     self.memory_set(0x0084, 0x02)
-
-    #     self.execute()
-
-    #     self.assertEquals(self.memory_fetch(0x0084), 0x01)
+        self.assertEquals(self.memory_fetch(0x0084), 0x01)
 
     def test_lsr_zeropage_x(self):
         self.cpu_set_register('X', 0x01)
@@ -2814,16 +2756,14 @@ class CPUTest(TestCase):
 # def test_rol_Accumulator(self):
 
 #     cpu.Registers.P |= C
-#     cpu.Registers.A = 0x2
+#     self.cpu_set_register('A', 0x2)
 #     self.cpu_pc(0x0100)
 
 #     self.memory_set(0x0100, 0x2a)
 
 #     self.execute()
 
-#     if cpu.Registers.A != 0x05 {
-#         t.Error("Register A is not 0x05")
-#     }
+#     self.assertEquals(self.cpu_register('A'), 0x05)
 
 
 # def test_rol_ZeroPage(self):
@@ -2886,96 +2826,80 @@ class CPUTest(TestCase):
 #     self.assertEquals(self.memory_fetch(0x0085), 0x05)
 
 
-# def test_rol_C_flag_set(self):
+    def test_rol_c_flag_set(self):
+        self.cpu_set_register('A', 0x80)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x2a)
 
-#     self.cpu_set_register('A', 0x80)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x2a)
+        self.assertTrue(self.cpu_flag('C'))
 
-#     self.execute()
+    def test_rol_c_flag_unset(self):
+        self.cpu_set_register('A', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x2a)
 
-# self.assertTrue(self.cpu_flag('C'))
+        self.execute()
 
-
-# def test_rol_C_flag_unset(self):
-
-#     self.cpu_set_register('A', 0x01)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x2a)
-
-#     self.execute()
-
-# self.assertFalse(self.cpu_flag('C'))
+        self.assertFalse(self.cpu_flag('C'))
 
 
-# def test_rol_z_flag_set(self):
+    def test_rol_z_flag_set(self):
+        self.cpu_set_register('A', 0x00)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x2a)
 
-#     self.cpu_set_register('A', 0x00)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x2a)
-
-#     self.execute()
-
-# self.assertTrue(self.cpu_flag('Z'))
+        self.assertTrue(self.cpu_flag('Z'))
 
 
-# def test_rol_z_flag_unset(self):
+    def test_rol_z_flag_unset(self):
+        self.cpu_set_register('A', 0x02)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x2a)
 
-#     self.cpu_set_register('A', 0x02)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x2a)
+        self.assertFalse(self.cpu_flag('Z'))
 
-#     self.execute()
+    def test_rol_n_flag_set(self):
+        self.cpu_set_register('A', 0xfe)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x2a)
 
-# self.assertFalse(self.cpu_flag('Z'))
+        self.execute()
 
+        self.assertTrue(self.cpu_flag('N'))
 
-# def test_rol_n_flag_set(self):
+    def test_rol_n_flag_unset(self):
+        self.cpu_set_register('A', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x2a)
 
-#     self.cpu_set_register('A', 0xfe)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x2a)
-
-#     self.execute()
-
-# self.assertTrue(self.cpu_flag('N'))
-
-
-# def test_rol_n_flag_unset(self):
-
-#     self.cpu_set_register('A', 0x01)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x2a)
-
-#     self.execute()
-
-# self.assertFalse(self.cpu_flag('N'))
+        self.assertFalse(self.cpu_flag('N'))
 
 
-# // ROR
+    # // ROR
 
-# def test_RorAccumulator(self):
+    @skip('TODO')
+    def test_ror_accumulator(self):
 
-#     cpu.Registers.P |= C
-#     self.cpu_set_register('A', 0x08)
-#     self.cpu_pc(0x0100)
+        cpu.Registers.P |= C
+        self.cpu_set_register('A', 0x08)
+        self.cpu_pc(0x0100)
 
-#     self.memory_set(0x0100, 0x6a)
+        self.memory_set(0x0100, 0x6a)
 
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.A != 0x84 {
-#         t.Error("Register A is not 0x84")
-#     }
+        self.assertEquals(self.cpu_register('A'), 0x84)
 
 
-# def test_RorZeroPage(self):
+# def test_ror_ZeroPage(self):
 
 #     cpu.Registers.P |= C
 #     self.cpu_pc(0x0100)
@@ -2989,7 +2913,7 @@ class CPUTest(TestCase):
 #     self.assertEquals(self.memory_fetch(0x0084), 0x84)
 
 
-# def test_RorZeroPageX(self):
+# def test_ror_ZeroPageX(self):
 
 #     cpu.Registers.P |= C
 #     self.cpu_set_register('X', 0x01)
@@ -3004,7 +2928,7 @@ class CPUTest(TestCase):
 #     self.assertEquals(self.memory_fetch(0x0085), 0x84)
 
 
-# def test_RorAbsolute(self):
+# def test_ror_Absolute(self):
 
 #     cpu.Registers.P |= C
 #     self.cpu_pc(0x0100)
@@ -3019,7 +2943,7 @@ class CPUTest(TestCase):
 #     self.assertEquals(self.memory_fetch(0x0084), 0x84)
 
 
-# def test_RorAbsoluteX(self):
+# def test_ror_AbsoluteX(self):
 
 #     cpu.Registers.P |= C
 #     self.cpu_set_register('X', 1)
@@ -3035,55 +2959,45 @@ class CPUTest(TestCase):
 #     self.assertEquals(self.memory_fetch(0x0085), 0x84)
 
 
-# def test_RorC_flag_set(self):
+    def test_ror_c_flag_set(self):
+        self.cpu_set_register('A', 0x01)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x6a)
 
-#     self.cpu_set_register('A', 0x01)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x6a)
+        self.assertTrue(self.cpu_flag('C'))
 
-#     self.execute()
+    def test_ror_c_flag_unset(self):
+        self.cpu_set_register('A', 0x10)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x6a)
 
-# self.assertTrue(self.cpu_flag('C'))
+        self.execute()
 
+        self.assertFalse(self.cpu_flag('C'))
 
-# def test_RorC_flag_unset(self):
+    def test_ror_z_flag_set(self):
+        self.cpu_set_register('A', 0x00)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x6a)
 
-#     self.cpu_set_register('A', 0x10)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x6a)
+        self.assertTrue(self.cpu_flag('Z'))
 
-#     self.execute()
+    def test_ror_z_flag_unset(self):
+        self.cpu_set_register('A', 0x02)
+        self.cpu_pc(0x0100)
 
-# self.assertFalse(self.cpu_flag('C'))
+        self.memory_set(0x0100, 0x6a)
 
+        self.execute()
 
-# def test_Ror_z_flag_set(self):
-
-#     self.cpu_set_register('A', 0x00)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x6a)
-
-#     self.execute()
-
-# self.assertTrue(self.cpu_flag('Z'))
-
-
-# def test_Ror_z_flag_unset(self):
-
-#     self.cpu_set_register('A', 0x02)
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x6a)
-
-#     self.execute()
-
-# self.assertFalse(self.cpu_flag('Z'))
+        self.assertFalse(self.cpu_flag('Z'))
 
 
-# def test_Ror_n_flag_set(self):
+# def test_ror_n_flag_set(self):
 
 #     cpu.Registers.P |= C
 #     self.cpu_set_register('A', 0xfe)
@@ -3096,7 +3010,7 @@ class CPUTest(TestCase):
 # self.assertTrue(self.cpu_flag('N'))
 
 
-# def test_Ror_n_flag_unset(self):
+# def test_ror_n_flag_unset(self):
 
 #     cpu.Registers.P &^= C
 #     self.cpu_set_register('A', 0x01)
@@ -3111,112 +3025,79 @@ class CPUTest(TestCase):
 
 # // JMP
 
-# def test_JmpAbsolute(self):
+    def test_jmp_absolute(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x4c)
+        self.memory_set(0x0101, 0xff)
+        self.memory_set(0x0102, 0x01)
 
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x4c)
-#     self.memory_set(0x0101, 0xff)
-#     self.memory_set(0x0102, 0x01)
+        self.assertEquals(self.cpu_register('PC'), 0x01ff)
 
-#     self.execute()
+    def test_jmp_indirect(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x6c)
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x01)
+        self.memory_set(0x0184, 0xff)
+        self.memory_set(0x0185, 0xff)
 
-#     if cpu.Registers.PC != 0x01ff {
-#         t.Error("Register PC is not 0x01ff")
-#     }
+        self.execute()
 
-
-# def test_JmpIndirect(self):
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x6c)
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x01)
-#     self.memory_set(0x0184, 0xff)
-#     self.memory_set(0x0185, 0xff)
-
-#     self.execute()
-
-#     if cpu.Registers.PC != 0xffff {
-#         t.Error("Register PC is not 0xffff")
-#     }
-
+        self.assertEquals(self.cpu_register('PC'), 0xffff)
 
 # // JSR
 
-# def test_Jsr(self):
+    def test_jsr(self):
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x20)
+        self.memory_set(0x0101, 0xff)
+        self.memory_set(0x0102, 0x01)
 
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x20)
-#     self.memory_set(0x0101, 0xff)
-#     self.memory_set(0x0102, 0x01)
+        self.assertEquals(self.cpu_register('PC'), 0x01ff)
+        #TODO: self.assertEquals(self.memory_fetch(0x01fd), 0x01)
+        #TODO: self.assertEquals(self.memory_fetch(0x01fc), 0x02)
 
-#     self.execute()
+        self.cpu_pc(0x0100)
 
-#     if cpu.Registers.PC != 0x01ff {
-#         t.Error("Register PC is not 0x01ff")
-#     }
+        self.memory_set(0x0100, 0x20) # JSR
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0084, 0x60) # RTS
 
-#     self.assertEquals(self.memory_fetch(0x01fd), 0x01)
+        self.execute()
+        self.execute()
 
-#     self.assertEquals(self.memory_fetch(0x01fc), 0x02)
+        self.assertEquals(self.cpu_register('PC'), 0x0103)
+        self.assertEquals(self.cpu_register('SP'), 0xfd)
 
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x20) # JSR $0084
+        self.memory_set(0x0101, 0x84)
+        self.memory_set(0x0102, 0x00)
+        self.memory_set(0x0103, 0xa9) # LDA #$ff
+        self.memory_set(0x0104, 0xff)
+        self.memory_set(0x0105, 0x02) # illegal opcode
+        self.memory_set(0x0084, 0x60) # RTS
 
+        # TODO:    cpu.Run()
+        # self.execute()
+        # self.assertEquals(self.cpu_register('A'), 0xff)
 
-#     self.cpu_pc(0x0100)
+    # // RTS
 
-#     self.memory_set(0x0100, 0x20) // JSR
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0084, 0x60) // RTS
+    @skip('TODO')
+    def test_rts(self):
+        self.cpu_pc(0x0100)
+        cpu.push16(0x0102)
+        self.memory_set(0x0100, 0x60)
 
-#     self.execute()
-#     self.execute()
+        self.execute()
 
-#     if cpu.Registers.PC != 0x0103 {
-#         t.Error("Register PC is not 0x0103")
-#     }
-
-#     if cpu.Registers.SP != 0xfd {
-#         t.Error("Register SP is not 0xfd")
-#     }
-
-
-
-#     self.cpu_pc(0x0100)
-
-#     self.memory_set(0x0100, 0x20) // JSR $0084
-#     self.memory_set(0x0101, 0x84)
-#     self.memory_set(0x0102, 0x00)
-#     self.memory_set(0x0103, 0xa9) // LDA #$ff
-#     self.memory_set(0x0104, 0xff)
-#     self.memory_set(0x0105, 0x02) // illegal opcode
-#     self.memory_set(0x0084, 0x60) // RTS
-
-#     cpu.Run()
-
-#     if cpu.Registers.A != 0xff {
-#         t.Error("Register A is not 0xff")
-#     }
-
-
-
-# // RTS
-
-# def test_Rts(self):
-
-#     self.cpu_pc(0x0100)
-#     cpu.push16(0x0102)
-
-#     self.memory_set(0x0100, 0x60)
-
-#     self.execute()
-
-#     if cpu.Registers.PC != 0x0103 {
-#         t.Error("Register PC is not 0x0103")
-#     }
+        self.assertEquals(self.cpu_register('PC'), 0x0103)
 
 
 # // BCC
@@ -3234,9 +3115,7 @@ class CPUTest(TestCase):
 #         t.Error("Cycles is not 2")
 #     }
 
-#     if cpu.Registers.PC != 0x0102 {
-#         t.Error("Register PC is not 0x0102")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0102)
 
 #     cpu.Registers.P &^= C
 #     self.cpu_pc(0x0100)
@@ -3250,9 +3129,7 @@ class CPUTest(TestCase):
 #         t.Error("Cycles is not 3")
 #     }
 
-#     if cpu.Registers.PC != 0x0104 {
-#         t.Error("Register PC is not 0x0104")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0104)
 
 #     cpu.Registers.P &^= C
 #     self.cpu_pc(0x0100)
@@ -3266,9 +3143,7 @@ class CPUTest(TestCase):
 #         t.Error("Cycles is not 4")
 #     }
 
-#     if cpu.Registers.PC != 0x00ff {
-#         t.Error("Register PC is not 0x00ff")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x00ff)
 
 
 # // BCS
@@ -3283,9 +3158,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0104 {
-#         t.Error("Register PC is not 0x0104")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0104)
 
 #     cpu.Registers.P |= C
 #     self.cpu_pc(0x0100)
@@ -3295,9 +3168,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0100 {
-#         t.Error("Register PC is not 0x0100")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0100)
 
 
 # // BEQ
@@ -3312,9 +3183,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0104 {
-#         t.Error("Register PC is not 0x0104")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0104)
 
 #     cpu.Registers.P |= Z
 #     self.cpu_pc(0x0100)
@@ -3324,9 +3193,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0100 {
-#         t.Error("Register PC is not 0x0100")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0100)
 
 
 # // BMI
@@ -3341,9 +3208,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0104 {
-#         t.Error("Register PC is not 0x0104")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0104)
 
 #     cpu.Registers.P |= N
 #     self.cpu_pc(0x0100)
@@ -3353,9 +3218,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0100 {
-#         t.Error("Register PC is not 0x0100")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0100)
 
 
 # // BNE
@@ -3370,9 +3233,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0104 {
-#         t.Error("Register PC is not 0x0104")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0104)
 
 #     cpu.Registers.P &^= Z
 #     self.cpu_pc(0x0100)
@@ -3382,9 +3243,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0100 {
-#         t.Error("Register PC is not 0x0100")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0100)
 
 
 # // BPL
@@ -3399,9 +3258,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0104 {
-#         t.Error("Register PC is not 0x0104")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0104)
 
 #     cpu.Registers.P &^= N
 #     self.cpu_pc(0x0100)
@@ -3411,9 +3268,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0100 {
-#         t.Error("Register PC is not 0x0100")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0100)
 
 
 # // BVC
@@ -3428,9 +3283,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0104 {
-#         t.Error("Register PC is not 0x0104")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0104)
 
 #     cpu.Registers.P &^= V
 #     self.cpu_pc(0x0100)
@@ -3440,9 +3293,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0100 {
-#         t.Error("Register PC is not 0x0100")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0100)
 
 
 # // BVS
@@ -3457,9 +3308,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0104 {
-#         t.Error("Register PC is not 0x0104")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0104)
 
 #     cpu.Registers.P |= V
 #     self.cpu_pc(0x0100)
@@ -3469,9 +3318,7 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.PC != 0x0100 {
-#         t.Error("Register PC is not 0x0100")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0100)
 
 
 # // CLC
@@ -3656,9 +3503,7 @@ class CPUTest(TestCase):
 #         t.Error("Memory is not 0x0102")
 #     }
 
-#     if cpu.Registers.PC != 0x01ff {
-#         t.Error("Register PC is not 0x01ff")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x01ff)
 
 
 # // RTI
@@ -3673,13 +3518,9 @@ class CPUTest(TestCase):
 
 #     self.execute()
 
-#     if cpu.Registers.P != 0x23 {
-#         t.Error("Register P is not 0x23")
-#     }
+#     self.assertEquals(self.cpu_register('P'), 0x23)
 
-#     if cpu.Registers.PC != 0x0102 {
-#         t.Error("Register PC is not 0x0102")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0102)
 
 
 # // Rom
@@ -3736,9 +3577,7 @@ class CPUTest(TestCase):
 #         t.Error("Memory is not 0x0100")
 #     }
 
-#     if cpu.Registers.PC != 0x0140 {
-#         t.Error("Register PC is not 0x0140")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0140)
 
 #     if cpu.GetInterrupt(Irq) {
 #         t.Error("Interrupt is set")
@@ -3766,9 +3605,7 @@ class CPUTest(TestCase):
 #         t.Error("Memory is not 0x0100")
 #     }
 
-#     if cpu.Registers.PC != 0x0140 {
-#         t.Error("Register PC is not 0x0140")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0140)
 
 #     if cpu.GetInterrupt(Nmi) {
 #         t.Error("Interrupt is set")
@@ -3787,9 +3624,7 @@ class CPUTest(TestCase):
 
 #     cpu.PerformInterrupts()
 
-#     if cpu.Registers.PC != 0x0140 {
-#         t.Error("Register PC is not 0x0140")
-#     }
+#     self.assertEquals(self.cpu_register('PC'), 0x0140)
 
 #     if cpu.GetInterrupt(Rst) {
 #         t.Error("Interrupt is set")
