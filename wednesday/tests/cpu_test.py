@@ -3298,7 +3298,7 @@ class CPUTest(TestCase):
 
     # // CLV
 
-    def test_Clv(self):
+    def test_clv(self):
         self.cpu_unset_flag('V')
         self.cpu_pc(0x0100)
         self.memory_set(0x0100, 0xb8)
@@ -3317,7 +3317,7 @@ class CPUTest(TestCase):
 
     # // SEC
 
-    def test_Sec(self):
+    def test_sec(self):
         self.cpu_unset_flag('C')
         self.cpu_pc(0x0100)
         self.memory_set(0x0100, 0x38)
@@ -3336,7 +3336,7 @@ class CPUTest(TestCase):
 
     # // SED
 
-    def test_Sed(self):
+    def test_sed(self):
         self.cpu_unset_flag('D')
         self.cpu_pc(0x0100)
         self.memory_set(0x0100, 0xf8)
@@ -3355,7 +3355,7 @@ class CPUTest(TestCase):
 
     # // SEI
 
-    def test_Sei(self):
+    def test_sei(self):
         self.cpu_unset_flag('I')
         self.cpu_pc(0x0100)
         self.memory_set(0x0100, 0x78)
