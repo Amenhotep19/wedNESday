@@ -17,7 +17,7 @@ FLAGS = {
     'I': 'interrupt_disable_flag',
     'D': 'decimal_mode_flag',
     'B': 'break_flag',
-    'O': 'overflow_flag',
+    'V': 'overflow_flag',
     'N': 'sign_flag',
 }
 
@@ -1228,7 +1228,6 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('N'))
 
-    @skip('TODO')
     def test_bit_v_flag_set(self):
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
@@ -1240,7 +1239,6 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('V'))
 
-    @skip('TODO')
     def test_bit_v_flag_unset(self):
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)
@@ -1498,7 +1496,6 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('Z'))
 
-    @skip('TODO')
     def test_adc_v_flag_set(self):
         self.cpu_set_register('A', 0x7f) # +127
         self.cpu_pc(0x0100)
@@ -1509,7 +1506,6 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('V'))
 
-    @skip('TODO')
     def test_adc_v_flag_unset(self):
         self.cpu_set_register('A', 0x01) # +1
         self.cpu_pc(0x0100)
@@ -1724,7 +1720,6 @@ class CPUTest(TestCase):
 
         self.assertFalse(self.cpu_flag('Z'))
 
-    @skip('TODO')
     def test_sbc_v_flag_set(self):
         self.cpu_set_register('A', 0x80) # -128
         self.cpu_pc(0x0100)
@@ -1735,7 +1730,6 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('V'))
 
-    @skip('TODO')
     def test_sbc_v_flag_unset(self):
         self.cpu_set_register('A', 0x01) # +1
         self.cpu_pc(0x0100)
