@@ -74,6 +74,18 @@ class CPUTest(TestCase):
         name = FLAGS[flag]
         setattr(self.cpu, name, False)
 
+    def cpu_push_byte(self, byte):
+        self.cpu.push_byte(byte)
+
+    def cpu_pull_byte(self):
+        self.cpu.pull_byte()
+
+    def cpu_push_word(self, word):
+        self.cpu.push_word(word)
+
+    def cpu_pull_word(self):
+        self.cpu.pull_word()
+
     def test_lda_imediate(self):
         self.cpu_pc(0x0100)
 
@@ -684,9 +696,7 @@ class CPUTest(TestCase):
 
         self.execute()
 
-    #     if cpu.pull() != 0xff {
-    #         t.Error("Memory is not 0xff")
-    #     }
+        self.assertEquals(self.cpu_pull_byte(), 0xff)
 
     # // PHP
 
@@ -698,26 +708,21 @@ class CPUTest(TestCase):
 
         self.execute()
 
-        #     if cpu.pull() != 0xff {
-        #         t.Error("Memory is not 0xff")
-        #     }
-
+        self.assertEquals(self.cpu_pull_byte(), 0xff)
 
     # // PLA
 
-    @skip('TODO')
     def test_pla(self):
+        self.cpu_push_byte(0xff)
         self.cpu_pc(0x0100)
-        #TODO: cpu.push(0xff)
         self.memory_set(0x0100, 0x68)
 
         self.execute()
 
         self.assertEquals(self.cpu_register('A'), 0xff)
 
-    @skip('TODO')
     def test_pla_z_flag_set(self):
-        # TODO: cpu.push(0x00)
+        self.cpu_push_byte(0x00)
         self.cpu_pc(0x0100)
         self.memory_set(0x0100, 0x68)
 
@@ -725,33 +730,26 @@ class CPUTest(TestCase):
 
         self.assertTrue(self.cpu_flag('Z'))
 
-    @skip('TODO')
     def test_pla_z_flag_unset(self):
-
-        # TODO: cpu.push(0x01)
+        self.cpu_push_byte(0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x68)
 
         self.execute()
 
         self.assertFalse(self.cpu_flag('Z'))
 
-    @skip('TODO')
     def test_pla_n_flag_set(self):
-        # TODO: cpu.push(0x81)
+        self.cpu_push_byte(0x81)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x68)
 
         self.execute()
         self.assertTrue(self.cpu_flag('N'))
 
-    @skip('TODO')
     def test_pla_n_flag_unset(self):
-        cpu.push(0x01)
+        self.cpu_push_byte(0x01)
         self.cpu_pc(0x0100)
-
         self.memory_set(0x0100, 0x68)
 
         self.execute()
@@ -763,15 +761,14 @@ class CPUTest(TestCase):
 
     @skip('TODO')
     def test_plp(self):
+        self.cpu_push_byte(0xff)
         self.cpu_pc(0x0100)
-        cpu.push(0xff)
 
         self.memory_set(0x0100, 0x28)
 
         self.execute()
 
-        # self.assertEquals(self.cpu_register('P'), 0xef)
-
+        # TODO: self.assertEquals(self.cpu_register('P'), 0xef)
 
     # // AND
 
@@ -3040,10 +3037,9 @@ class CPUTest(TestCase):
 
     # // RTS
 
-    @skip('TODO')
     def test_rts(self):
         self.cpu_pc(0x0100)
-        cpu.push16(0x0102)
+        self.cpu_push_word(0x0102)
         self.memory_set(0x0100, 0x60)
 
         self.execute()
@@ -3383,26 +3379,21 @@ class CPUTest(TestCase):
         self.assertTrue(self.cpu_flag('I'))
 
 
-# // BRK
+    # // BRK
 
-# def test_Brk(self):
+    @skip('TODO')
+    def test_brk(self):
+        self.cpu_set_register('P', 0xff) # & (^B)
+        self.cpu_pc(0x0100)
+        self.memory_set(0x0100, 0x00)
+        self.memory_set(0xfffe, 0xff)
+        self.memory_set(0xffff, 0x01)
 
-#     self.cpu_set_register('P', 0xff) & (^B)
-#     self.cpu_pc(0x0100)
+        self.execute()
 
-#     self.memory_set(0x0100, 0x00)
-#     self.memory_set(0xfffe, 0xff)
-#     self.memory_set(0xffff, 0x01)
+        self.assertEquals(self.cpu_pull_byte(), 0xff)
 
-#     self.execute()
-
-#     if cpu.pull() != 0xff {
-#         t.Error("Memory is not 0xff")
-#     }
-
-#     if cpu.pull16() != 0x0102 {
-#         t.Error("Memory is not 0x0102")
-#     }
+        self.assertEquals(self.cpu_pull_word(), 0x0102)
 
 #     self.assertEquals(self.cpu_register('PC'), 0x01ff)
 
@@ -3413,9 +3404,8 @@ class CPUTest(TestCase):
     def test_rti(self):
 
         self.cpu_pc(0x0100)
-        cpu.push16(0x0102)
-        cpu.push(0x03)
-
+        self.cpu_push_word(0x0102)
+        self.cpu_push_byte(0x03)
         self.memory_set(0x0100, 0x40)
 
         self.execute()
