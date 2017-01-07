@@ -644,7 +644,6 @@ class CPU6502Spec(object):
 
     # // PHA
 
-    @skip('TODO')
     def test_pha(self):
         self.cpu_set_register('A', 0xff)
         self.cpu_pc(0x0100)

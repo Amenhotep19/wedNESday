@@ -80,10 +80,10 @@ class CPUTest(CPU6502Spec, TestCase):
         self.cpu.push_byte(byte)
 
     def cpu_pull_byte(self):
-        self.cpu.pull_byte()
+        return self.cpu.pull_byte()
 
     def cpu_push_word(self, word):
         self.cpu.push_word(word)
 
     def cpu_pull_word(self):
-        self.cpu.pull_word()
+        return self.cpu.pull_word()
