@@ -1,2 +1,3 @@
 nose
+nesasm
 py65

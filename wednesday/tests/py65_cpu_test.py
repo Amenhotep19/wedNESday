@@ -24,14 +24,7 @@ FLAGS = {
 }
 
 
-class Py65CPUTest(CPU6502Spec, TestCase):
-
-    def setUp(self):
-        self.cpu = MPU()
-        print self.cpu
-
-    def tearDown(self):
-        print self.cpu
+class Py65CPUBridge(object):
 
     def cpu_pc(self, counter):
         self.cpu.pc = counter
@@ -83,3 +76,13 @@ class Py65CPUTest(CPU6502Spec, TestCase):
 
     def cpu_pull_word(self):
         return self.cpu.stPullWord()
+
+
+class Py65CPUTest(Py65CPUBridge, CPU6502Spec, TestCase):
+
+    def setUp(self):
+        self.cpu = MPU()
+        print self.cpu
+
+    def tearDown(self):
+        print self.cpu
