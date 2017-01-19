@@ -11,14 +11,15 @@ class NesSnippetsTest(Py65CPUBridge, TestCase):
     def setUp(self):
         self.cpu = MPU()
 
-    def assembly(self, source):
-        return semantic(syntax(lexical(source)), False, Cartridge())
+    def assembly(self, source, start_addr=0):
+        cart = Cartridge()
+        if start_addr != 0:
+          cart.set_org(start_addr)
+        return semantic(syntax(lexical(source)), False, cart)
 
     def load_program(self, code):
-        opcodes = self.assembly(code)
-        print opcodes
-
         start_addr = 0x0100
+        opcodes = self.assembly(code, start_addr)
         self.cpu_pc(start_addr)
         for addr, val in enumerate(opcodes, start=start_addr):
             self.memory_set(addr, val)
@@ -66,8 +67,8 @@ class NesSnippetsTest(Py65CPUBridge, TestCase):
               TXS
               INX
               STX $2000
-            ;  STX $2001
-            ;  STX $4010
+              STX $2001
+              STX $4010
         '''
         self.load_program(code)
         self.run_program()
@@ -102,10 +103,6 @@ class NesSnippetsTest(Py65CPUBridge, TestCase):
 
     def test_load_palettes(self):
         code = '''
-            palette:
-              .db $0F,$01,$02,$03,$04,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F
-              .db $0F,$30,$31,$32,$33,$35,$36,$37,$38,$39,$3A,$3B,$3C,$3D,$3E,$0F
-
             LoadPalettes:
               LDA $2002             ; Reset PPU, start writing
               LDA #$3F
@@ -119,8 +116,14 @@ class NesSnippetsTest(Py65CPUBridge, TestCase):
               INX
               CPX #$20                  ; Hex 20 = 32 decimal
               BNE LoadPalettesIntoPPU
+            palette:
+              .db $0F,$01,$02,$03,$04,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F
+              .db $0F,$30,$31,$32,$33,$35,$36,$37,$38,$39,$3A,$3B,$3C,$3D,$3E,$0F
         '''
 
         self.load_program(code)
         self.run_program()
-        # TODO: deal with label with start_addrs jump
+
+        self.assertEquals(0x00, self.memory_fetch(0x2006))
+        self.assertEquals(self.cpu_register('X'), 32)
+        self.assertEquals(0x0f, self.memory_fetch(0x2007))
