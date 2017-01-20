@@ -132,3 +132,32 @@ class NesSnippetsTest(Py65CPUBridge, TestCase):
         self.assertEquals(0x00, self.memory_fetch(0x2006))
         self.assertEquals(self.cpu_register('X'), 32)
         self.assertEquals(0x0f, self.memory_fetch(0x2007))
+
+    def test_load_sprites(self):
+        code = '''
+            LoadSprites:
+              LDX #$00
+            LoadSpritesIntoPPU:
+              LDA sprites, x
+              STA $0200, x
+              INX
+              CPX #4                  ; Hex 20 = 32 decimal
+              BNE LoadSpritesIntoPPU
+            JMP done
+
+            sprites:
+              .db $80, $00, $03, $80; Y pos, tile id, attributes, X pos
+
+            done:
+              RTS
+        '''
+
+        self.load_program(code)
+        self.run_program()
+
+        self.assertEquals(self.cpu_register('A'), 0x80)
+        self.assertEquals(self.cpu_register('X'), 4)
+        self.assertEquals(0x80, self.memory_fetch(0x0200))
+        self.assertEquals(0x00, self.memory_fetch(0x0201))
+        self.assertEquals(0x03, self.memory_fetch(0x0202))
+        self.assertEquals(0x80, self.memory_fetch(0x0203))
