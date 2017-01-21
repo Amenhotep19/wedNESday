@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from unittest import TestCase
 from unittest import SkipTest
 
@@ -30,7 +32,7 @@ class Py65CPUBridge(object):
         self.cpu.pc = counter
 
     def memory_set(self, pos, val):
-        print 'memory_set {:04x}, {:04x}'.format(pos, val)
+        print('memory_set {:04x}, {:04x}'.format(pos, val))
         self.cpu.memory[pos] = val
 
     def memory_fetch(self, pos):
@@ -38,14 +40,14 @@ class Py65CPUBridge(object):
 
     def execute(self):
         self.cpu.step()
-        print self.cpu
+        print(self.cpu)
         return self.cpu.processorCycles, None
 
     def cpu_set_register(self, register, value):
-        print 'cpu_set_register {}, {:02x}'.format(register, value)
+        print('cpu_set_register {}, {:02x}'.format(register, value))
         name = REGISTERS[register]
         setattr(self.cpu, name, value)
-        print self.cpu
+        print(self.cpu)
 
     def cpu_register(self, register):
         name = REGISTERS[register]
@@ -56,10 +58,10 @@ class Py65CPUBridge(object):
         return not not (self.cpu.p & bit)
 
     def cpu_set_flag(self, flag):
-        print 'cpu_set_flag', flag
+        print('cpu_set_flag', flag)
         bit = FLAGS[flag]
         self.cpu.p |= bit
-        print self.cpu
+        print(self.cpu)
 
     def cpu_unset_flag(self, flag):
         mask = ~ FLAGS[flag]
@@ -82,7 +84,7 @@ class Py65CPUTest(Py65CPUBridge, CPU6502Spec, TestCase):
 
     def setUp(self):
         self.cpu = MPU()
-        print self.cpu
+        print(self.cpu)
 
     def tearDown(self):
-        print self.cpu
+        print(self.cpu)

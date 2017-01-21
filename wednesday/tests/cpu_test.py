@@ -53,7 +53,7 @@ class CPUTest(CPU6502Spec, TestCase):
         return self.memory._mem[pos]
 
     def execute(self):
-        cycle, _ = self.executor.next()
+        cycle, _ = next(self.executor)
         return cycle, _
 
     def cpu_set_register(self, register, value):

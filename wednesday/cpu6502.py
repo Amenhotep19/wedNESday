@@ -2,8 +2,7 @@
 # James Tauber / http://jtauber.com/
 # originally written 2001, updated 2011
 
-
-import BaseHTTPServer
+from __future__ import print_function
 import json
 import re
 import select
@@ -342,13 +341,13 @@ class CPU(object):
     def run(self):
         count = 1000
         while True:
-            self.cycles += 2  # all instructions take this as a minimum
+            self.cycles = 2  # all instructions take this as a minimum
             op = self.read_pc_byte()
             func = self.ops[op]
             if func is None:
-                print "UNKNOWN OP"
-                print hex(self.program_counter - 1)
-                print hex(op)
+                print("UNKNOWN OP")
+                print(hex(self.program_counter - 1))
+                print(hex(op))
                 break
             else:
                 self.ops[op]()
@@ -364,9 +363,9 @@ class CPU(object):
             op = self.read_pc_byte()
             func = self.ops[op]
             if func is None:
-                print "UNKNOWN OP"
-                print hex(self.program_counter - 1)
-                print hex(op)
+                print("UNKNOWN OP")
+                print(hex(self.program_counter - 1))
+                print(hex(op))
                 break
             else:
                 self.ops[op]()
