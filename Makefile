@@ -42,7 +42,7 @@ test: python_build ${REQUIREMENTS_TEST}
 	${VIRTUALENV} nosetests --processes=2 ${PYTHON_MODULES}
 
 ci:
-	${VIRTUALENV} CI=1 nosetests -v --with-timer --timer-top-n 0 ${PYTHON_MODULES}
+	${VIRTUALENV} CI=1 nosetests -v --with-timer --timer-top-n 0 --with-coverage --cover-xml --cover-package=${PYTHON_MODULES} ${PYTHON_MODULES}
 
 pep8: ${REQUIREMENTS_TEST}
 	${VIRTUALENV} pep8 --statistics -qq ${PYTHON_MODULES} | sort -rn || echo ''

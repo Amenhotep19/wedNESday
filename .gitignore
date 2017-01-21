@@ -1,7 +1,9 @@
 *.egg-info/
 *.pyc
 .checkpoint/
+.coverage
 .tox
+coverage.xml
 dist/
 github.mk
 python.mk
