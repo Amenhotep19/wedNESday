@@ -11,6 +11,7 @@ REGISTERS = {
     'A': 'a',
     'X': 'x',
     'Y': 'y',
+    'P': 'p',
     'SP': 'sp',
     'PC': 'pc',
 }
@@ -77,7 +78,7 @@ class Py65CPUBridge(object):
         self.cpu.stPushWord(word)
 
     def cpu_pull_word(self):
-        return self.cpu.stPullWord()
+        return self.cpu.stPopWord()
 
 
 class Py65CPUTest(Py65CPUBridge, CPU6502Spec, TestCase):

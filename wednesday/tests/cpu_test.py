@@ -57,10 +57,14 @@ class CPUTest(CPU6502Spec, TestCase):
         return cycle, _
 
     def cpu_set_register(self, register, value):
+        if register == 'P':
+            return self.cpu.status_from_byte(value)
         name = REGISTERS[register]
         setattr(self.cpu, name, value)
 
     def cpu_register(self, register):
+        if register == 'P':
+            return self.cpu.status_as_byte()
         name = REGISTERS[register]
         return getattr(self.cpu, name)
 
@@ -87,3 +91,7 @@ class CPUTest(CPU6502Spec, TestCase):
 
     def cpu_pull_word(self):
         return self.cpu.pull_word()
+
+    @skip('TODO')
+    def test_lda_absolute_x_2(self):
+        pass

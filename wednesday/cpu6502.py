@@ -74,7 +74,7 @@ class MemoryInterface(object):
 class BasicMemory(RAM):
 
     def __init__(self):
-        super(BasicMemory, self).__init__(0x0000, 0xFFFF)
+        super(BasicMemory, self).__init__(0x0000, 0xFFFF + 1)
         # self.ram = RAM(0x0000, 0xC000)
 
     def read_word(self, cycle, address):
