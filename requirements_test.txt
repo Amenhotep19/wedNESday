@@ -1,3 +1,4 @@
-nose
 nesasm==0.0.8
-py65
+nose-notify==0.4.2
+nose==1.3.3
+tdaemon==0.1.1
