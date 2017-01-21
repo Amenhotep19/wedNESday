@@ -67,8 +67,6 @@ tdd:
 
 tox: ${REQUIREMENTS_TEST}
 	${VIRTUALENV} tox
-	# awk '{print "tdaemon --ignore-dirs=\""$2}' | \
-	xargs echo
 
 dist: python_egg python_wheel
 

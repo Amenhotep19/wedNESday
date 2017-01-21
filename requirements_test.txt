@@ -2,3 +2,4 @@ nesasm==0.0.8
 nose-notify==0.4.2
 nose==1.3.3
 tdaemon==0.1.1
+tox==2.5.0
