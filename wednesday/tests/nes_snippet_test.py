@@ -18,7 +18,7 @@ class NesSnippetsTest(Py65CPUBridge, TestCase):
         return semantic(syntax(lexical(source)), False, cart)
 
     def load_program(self, code):
-        start_addr = 0x0100
+        start_addr = 0xC000
         opcodes = self.assembly(code, start_addr)
         self.cpu_pc(start_addr)
         for addr, val in enumerate(opcodes, start=start_addr):
@@ -45,16 +45,16 @@ class NesSnippetsTest(Py65CPUBridge, TestCase):
         self.load_program(code)
 
         self.execute()
-        self.assertEquals(0x103, self.cpu.pc)
+        self.assertEquals(0xC003, self.cpu.pc)
         self.execute()
-        self.assertEquals(0x100, self.cpu.pc)
+        self.assertEquals(0xC000, self.cpu.pc)
         self.execute()
-        self.assertEquals(0x103, self.cpu.pc)
+        self.assertEquals(0xC003, self.cpu.pc)
         # self.memory_set(0x2002, 0b11111111)
         # print self.memory_fetch(0x2002)
         self.cpu_set_flag('N') # WaitVBlank
         self.execute()
-        self.assertEquals(0x105, self.cpu.pc)
+        self.assertEquals(0xC005, self.cpu.pc)
 
     def test_reset(self):
         code = '''
