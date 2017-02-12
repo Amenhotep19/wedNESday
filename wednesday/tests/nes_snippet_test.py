@@ -45,16 +45,16 @@ class NesSnippetsTest(Py65CPUBridge, TestCase):
         self.load_program(code)
 
         self.execute()
-        self.assertEquals(0xC003, self.cpu.pc)
+        self.assertEqual(0xC003, self.cpu.pc)
         self.execute()
-        self.assertEquals(0xC000, self.cpu.pc)
+        self.assertEqual(0xC000, self.cpu.pc)
         self.execute()
-        self.assertEquals(0xC003, self.cpu.pc)
+        self.assertEqual(0xC003, self.cpu.pc)
         # self.memory_set(0x2002, 0b11111111)
         # print self.memory_fetch(0x2002)
         self.cpu_set_flag('N') # WaitVBlank
         self.execute()
-        self.assertEquals(0xC005, self.cpu.pc)
+        self.assertEqual(0xC005, self.cpu.pc)
 
     def test_reset(self):
         code = '''
@@ -73,12 +73,12 @@ class NesSnippetsTest(Py65CPUBridge, TestCase):
         self.load_program(code)
         self.run_program()
 
-        self.assertEquals(0x40, self.memory_fetch(0x4017))
-        # self.assertEquals(0xff, self.cpu_pull_byte())
+        self.assertEqual(0x40, self.memory_fetch(0x4017))
+        #self.assertEqual(0xff, self.cpu_pull_byte())
 
-        self.assertEquals(self.cpu_register('X'), self.memory_fetch(0x2000))
-        self.assertEquals(self.cpu_register('X'), self.memory_fetch(0x2001))
-        self.assertEquals(self.cpu_register('X'), self.memory_fetch(0x4010))
+        self.assertEqual(self.cpu_register('X'), self.memory_fetch(0x2000))
+        self.assertEqual(self.cpu_register('X'), self.memory_fetch(0x2001))
+        self.assertEqual(self.cpu_register('X'), self.memory_fetch(0x4010))
 
 
     def test_clearmem(self):
@@ -129,9 +129,9 @@ class NesSnippetsTest(Py65CPUBridge, TestCase):
         self.load_program(code)
         self.run_program()
 
-        self.assertEquals(0x00, self.memory_fetch(0x2006))
-        self.assertEquals(self.cpu_register('X'), 32)
-        self.assertEquals(0x0f, self.memory_fetch(0x2007))
+        self.assertEqual(0x00, self.memory_fetch(0x2006))
+        self.assertEqual(self.cpu_register('X'), 32)
+        self.assertEqual(0x0f, self.memory_fetch(0x2007))
 
     def test_load_sprites(self):
         code = '''
@@ -155,9 +155,9 @@ class NesSnippetsTest(Py65CPUBridge, TestCase):
         self.load_program(code)
         self.run_program()
 
-        self.assertEquals(self.cpu_register('A'), 0x80)
-        self.assertEquals(self.cpu_register('X'), 4)
-        self.assertEquals(0x80, self.memory_fetch(0x0200))
-        self.assertEquals(0x00, self.memory_fetch(0x0201))
-        self.assertEquals(0x03, self.memory_fetch(0x0202))
-        self.assertEquals(0x80, self.memory_fetch(0x0203))
+        self.assertEqual(self.cpu_register('A'), 0x80)
+        self.assertEqual(self.cpu_register('X'), 4)
+        self.assertEqual(0x80, self.memory_fetch(0x0200))
+        self.assertEqual(0x00, self.memory_fetch(0x0201))
+        self.assertEqual(0x03, self.memory_fetch(0x0202))
+        self.assertEqual(0x80, self.memory_fetch(0x0203))

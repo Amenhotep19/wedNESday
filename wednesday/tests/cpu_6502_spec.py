@@ -49,7 +49,7 @@ class CPU6502Spec(object):
         self.memory_set(0x0101, 0xff)
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_lda_zeropage(self):
         self.cpu_pc(0x0100)
@@ -58,7 +58,7 @@ class CPU6502Spec(object):
         self.memory_set(0x0084, 0xff)
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_lda_zero_page_x(self):
         self.cpu_set_register('X', 0x01)
@@ -69,7 +69,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_lda_absolute(self):
         self.cpu_pc(0x0100)
@@ -80,7 +80,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_lda_absolute_x(self):
         self.cpu_set_register('X', 1)
@@ -92,8 +92,8 @@ class CPU6502Spec(object):
 
         cycles, _ = self.execute()
 
-        self.assertEquals(cycles, 4)
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(cycles, 4)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_lda_absolute_x_2(self):
         self.cpu_set_register('X', 1)
@@ -105,7 +105,7 @@ class CPU6502Spec(object):
 
         cycles, _ = self.execute()
 
-        self.assertEquals(cycles, 5)
+        self.assertEqual(cycles, 5)
 
     def test_lda_absolute_y(self):
         self.cpu_set_register('Y', 1)
@@ -117,8 +117,8 @@ class CPU6502Spec(object):
 
         cycles, _ = self.execute()
 
-        self.assertEquals(cycles, 4)
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(cycles, 4)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
@@ -129,7 +129,7 @@ class CPU6502Spec(object):
 
         cycles, _ = self.execute()
 
-        # TODO: self.assertEquals(cycles, 5)
+        # TODO: self.assertEqual(cycles, 5)
 
     def test_lda_indirect_x(self):
         self.cpu_set_register('X', 1)
@@ -142,7 +142,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_lda_indirect_y(self):
         self.cpu_set_register('Y', 1)
@@ -155,8 +155,8 @@ class CPU6502Spec(object):
 
         cycles, _ = self.execute()
 
-        # TODO: self.assertEquals(cycle, 5)
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        # TODO: self.assertEqual(cycle, 5)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
         self.cpu_set_register('Y', 1)
         self.cpu_pc(0x0100)
@@ -168,7 +168,7 @@ class CPU6502Spec(object):
 
         cycles, _ = self.execute()
 
-        # TODO: self.assertEquals(cycle, 6)
+        # TODO: self.assertEqual(cycle, 6)
 
     def test_lda_z_flag_set(self):
         self.cpu_pc(0x0100)
@@ -215,7 +215,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('X'), 0xff)
+        self.assertEqual(self.cpu_register('X'), 0xff)
 
     def test_ldx_zero_page(self):
         self.cpu_pc(0x0100)
@@ -225,7 +225,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('X'), 0xff)
+        self.assertEqual(self.cpu_register('X'), 0xff)
 
     def test_ldx_zeropage_y(self):
         self.cpu_set_register('Y', 0x01)
@@ -236,7 +236,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('X'), 0xff)
+        self.assertEqual(self.cpu_register('X'), 0xff)
 
     def test_ldx_absolute(self):
         self.cpu_pc(0x0100)
@@ -247,7 +247,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('X'), 0xff)
+        self.assertEqual(self.cpu_register('X'), 0xff)
 
     def test_ldx_absolute_y(self):
         self.cpu_set_register('Y', 1)
@@ -259,7 +259,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('X'), 0xff)
+        self.assertEqual(self.cpu_register('X'), 0xff)
 
     def test_ldx_z_flag_set(self):
         self.cpu_pc(0x0100)
@@ -306,7 +306,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('Y'), 0xff)
+        self.assertEqual(self.cpu_register('Y'), 0xff)
 
     def test_ldy_zeropage(self):
         self.cpu_pc(0x0100)
@@ -315,7 +315,7 @@ class CPU6502Spec(object):
         self.memory_set(0x0084, 0xff)
 
         self.execute()
-        self.assertEquals(self.cpu_register('Y'), 0xff)
+        self.assertEqual(self.cpu_register('Y'), 0xff)
 
     def test_ldy_zeropage_x(self):
         self.cpu_set_register('X', 0x01)
@@ -326,7 +326,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('Y'), 0xff)
+        self.assertEqual(self.cpu_register('Y'), 0xff)
 
     def test_ldy_absolute(self):
         self.cpu_pc(0x0100)
@@ -337,7 +337,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('Y'), 0xff)
+        self.assertEqual(self.cpu_register('Y'), 0xff)
 
     def test_ldy_absolute_x(self):
         self.cpu_set_register('X', 1)
@@ -349,7 +349,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('Y'), 0xff)
+        self.assertEqual(self.cpu_register('Y'), 0xff)
 
     def test_ldy_z_flag_set(self):
         self.cpu_pc(0x0100)
@@ -397,7 +397,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0xff)
+        self.assertEqual(self.memory_fetch(0x0084), 0xff)
 
     def test_sta_zeropage_x(self):
         self.cpu_set_register('A', 0xff)
@@ -408,7 +408,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0xff)
+        self.assertEqual(self.memory_fetch(0x0085), 0xff)
 
     def test_sta_absolute(self):
         self.cpu_set_register('A', 0xff)
@@ -419,7 +419,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0xff)
+        self.assertEqual(self.memory_fetch(0x0084), 0xff)
 
     def test_sta_absolute_x(self):
         self.cpu_set_register('A', 0xff)
@@ -431,7 +431,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0xff)
+        self.assertEqual(self.memory_fetch(0x0085), 0xff)
 
     def test_sta_absolute_y(self):
         self.cpu_set_register('A', 0xff)
@@ -443,7 +443,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0xff)
+        self.assertEqual(self.memory_fetch(0x0085), 0xff)
 
     def test_sta_indirect_x(self):
         self.cpu_set_register('A', 0xff)
@@ -456,7 +456,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0087), 0xff)
+        self.assertEqual(self.memory_fetch(0x0087), 0xff)
 
     def test_sta_indirect_y(self):
         self.cpu_set_register('A', 0xff)
@@ -469,7 +469,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0087), 0xff)
+        self.assertEqual(self.memory_fetch(0x0087), 0xff)
 
     # // STX
 
@@ -481,7 +481,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0xff)
+        self.assertEqual(self.memory_fetch(0x0084), 0xff)
 
     def test_stx_zeropage_y(self):
         self.cpu_set_register('X', 0xff)
@@ -492,7 +492,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0xff)
+        self.assertEqual(self.memory_fetch(0x0085), 0xff)
 
     def test_stx_absolute(self):
         self.cpu_set_register('X', 0xff)
@@ -503,7 +503,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0xff)
+        self.assertEqual(self.memory_fetch(0x0084), 0xff)
 
     # // STY
 
@@ -515,7 +515,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0xff)
+        self.assertEqual(self.memory_fetch(0x0084), 0xff)
 
     def test_sty_zeropage_y(self):
         self.cpu_set_register('Y', 0xff)
@@ -526,7 +526,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0xff)
+        self.assertEqual(self.memory_fetch(0x0085), 0xff)
 
     def test_sty_absolute(self):
         self.cpu_set_register('Y', 0xff)
@@ -537,7 +537,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0xff)
+        self.assertEqual(self.memory_fetch(0x0084), 0xff)
 
     # // TAX
 
@@ -548,7 +548,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('X'), 0xff)
+        self.assertEqual(self.cpu_register('X'), 0xff)
 
     def test_tax_z_flag_set(self):
         self.cpu_set_register('A', 0x00)
@@ -595,7 +595,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('Y'), 0xff)
+        self.assertEqual(self.cpu_register('Y'), 0xff)
 
     # // TXA
 
@@ -606,7 +606,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     # // TYA
 
@@ -617,7 +617,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     # // TSX
 
@@ -628,7 +628,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('X'), 0xff)
+        self.assertEqual(self.cpu_register('X'), 0xff)
 
     # // TXS
 
@@ -639,7 +639,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('SP'), 0xff)
+        self.assertEqual(self.cpu_register('SP'), 0xff)
 
     # // PHA
 
@@ -650,7 +650,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_pull_byte(), 0xff)
+        self.assertEqual(self.cpu_pull_byte(), 0xff)
 
     # // PHP
 
@@ -661,7 +661,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_pull_byte(), 0xff)
+        self.assertEqual(self.cpu_pull_byte(), 0xff)
 
     # // PLA
 
@@ -672,7 +672,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_pla_z_flag_set(self):
         self.cpu_push_byte(0x00)
@@ -720,7 +720,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('P'), 0xef)
+        self.assertEqual(self.cpu_register('P'), 0xef)
 
     # // AND
 
@@ -732,7 +732,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x0f)
+        self.assertEqual(self.cpu_register('A'), 0x0f)
 
     def test_and_zeropage(self):
         self.cpu_set_register('A', 0xff)
@@ -743,7 +743,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x0f)
+        self.assertEqual(self.cpu_register('A'), 0x0f)
 
     def test_and_zeropage_x(self):
         self.cpu_set_register('A', 0xff)
@@ -755,7 +755,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x0f)
+        self.assertEqual(self.cpu_register('A'), 0x0f)
 
     def test_and_absolute(self):
         self.cpu_set_register('A', 0xff)
@@ -767,7 +767,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x0f)
+        self.assertEqual(self.cpu_register('A'), 0x0f)
 
     def test_and_absolute_x(self):
         self.cpu_set_register('A', 0xff)
@@ -780,7 +780,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x0f)
+        self.assertEqual(self.cpu_register('A'), 0x0f)
 
     def test_and_absolute_y(self):
         self.cpu_set_register('A', 0xff)
@@ -793,7 +793,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x0f)
+        self.assertEqual(self.cpu_register('A'), 0x0f)
 
     def test_and_indirect_x(self):
         self.cpu_set_register('A', 0xff)
@@ -807,7 +807,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x0f)
+        self.assertEqual(self.cpu_register('A'), 0x0f)
 
     def test_and_indirect_y(self):
         self.cpu_set_register('A', 0xff)
@@ -821,7 +821,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x0f)
+        self.assertEqual(self.cpu_register('A'), 0x0f)
 
     def test_and_z_flag_set(self):
         self.cpu_pc(0x0100)
@@ -871,7 +871,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xf0)
+        self.assertEqual(self.cpu_register('A'), 0xf0)
 
     def test_eor_zeropage(self):
         self.cpu_set_register('A', 0xff)
@@ -882,7 +882,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xf0)
+        self.assertEqual(self.cpu_register('A'), 0xf0)
 
     def test_eor_zeropage_x(self):
         self.cpu_set_register('A', 0xff)
@@ -894,7 +894,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xf0)
+        self.assertEqual(self.cpu_register('A'), 0xf0)
 
     def test_eor_absolute(self):
         self.cpu_set_register('A', 0xff)
@@ -906,7 +906,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xf0)
+        self.assertEqual(self.cpu_register('A'), 0xf0)
 
     def test_eor_absolute_x(self):
         self.cpu_set_register('A', 0xff)
@@ -919,7 +919,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xf0)
+        self.assertEqual(self.cpu_register('A'), 0xf0)
 
     def test_eor_absolute_y(self):
         self.cpu_set_register('A', 0xff)
@@ -932,7 +932,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xf0)
+        self.assertEqual(self.cpu_register('A'), 0xf0)
 
     def test_eor_indirect_x(self):
         self.cpu_set_register('A', 0xff)
@@ -946,7 +946,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xf0)
+        self.assertEqual(self.cpu_register('A'), 0xf0)
 
     def test_eor_indirect_y(self):
         self.cpu_set_register('A', 0xff)
@@ -960,7 +960,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xf0)
+        self.assertEqual(self.cpu_register('A'), 0xf0)
 
     def test_eor_z_flag_set(self):
         self.cpu_pc(0x0100)
@@ -1010,7 +1010,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_ora_zeropage(self):
         self.cpu_set_register('A', 0xf0)
@@ -1021,7 +1021,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_ora_zeropage_x(self):
         self.cpu_set_register('A', 0xf0)
@@ -1033,7 +1033,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_ora_absolute(self):
         self.cpu_set_register('A', 0xf0)
@@ -1044,7 +1044,7 @@ class CPU6502Spec(object):
         self.memory_set(0x0084, 0x0f)
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_ora_absolute_x(self):
         self.cpu_set_register('A', 0xf0)
@@ -1057,7 +1057,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_ora_absolute_y(self):
         self.cpu_set_register('A', 0xf0)
@@ -1070,7 +1070,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_ora_indirect_x(self):
         self.cpu_set_register('A', 0xf0)
@@ -1084,7 +1084,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_ora_indirect_y(self):
         self.cpu_set_register('A', 0xf0)
@@ -1098,7 +1098,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0xff)
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     def test_ora_z_flag_set(self):
         self.cpu_pc(0x0100)
@@ -1241,7 +1241,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x03)
+        self.assertEqual(self.cpu_register('A'), 0x03)
 
         return
         # TODO
@@ -1254,7 +1254,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x40)
+        self.assertEqual(self.cpu_register('A'), 0x40)
 
         self.cpu_set_flag('D')
         self.cpu_set_register('A', 0x29) | uint8(N)  # BCD
@@ -1265,7 +1265,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x38)
+        self.assertEqual(self.cpu_register('A'), 0x38)
 
         self.cpu_set_flag('D')
         self.cpu_set_flag('C')
@@ -1277,7 +1277,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x05)
+        self.assertEqual(self.cpu_register('A'), 0x05)
 
     def test_adc_zeropage(self):
         self.cpu_set_register('A', 0x01)
@@ -1288,7 +1288,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x03)
+        self.assertEqual(self.cpu_register('A'), 0x03)
 
     def test_adc_zeropage_x(self):
         self.cpu_set_register('A', 0x01)
@@ -1300,7 +1300,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x03)
+        self.assertEqual(self.cpu_register('A'), 0x03)
 
     def test_adc_absolute(self):
         self.cpu_set_register('A', 0x01)
@@ -1312,7 +1312,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x03)
+        self.assertEqual(self.cpu_register('A'), 0x03)
 
     def test_adc_absolute_x(self):
         self.cpu_set_register('A', 0x01)
@@ -1325,7 +1325,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x03)
+        self.assertEqual(self.cpu_register('A'), 0x03)
 
     def test_adc_absolute_y(self):
         self.cpu_set_register('A', 0x01)
@@ -1338,7 +1338,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x03)
+        self.assertEqual(self.cpu_register('A'), 0x03)
 
     def test_adc_indirect_x(self):
         self.cpu_set_register('A', 0x01)
@@ -1352,7 +1352,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x03)
+        self.assertEqual(self.cpu_register('A'), 0x03)
 
 
     def test_adc_indirect_y(self):
@@ -1367,7 +1367,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x03)
+        self.assertEqual(self.cpu_register('A'), 0x03)
 
     def test_adc_c_flag_set(self):
         self.cpu_set_register('A', 0xff) # -1
@@ -1499,7 +1499,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x01)
+        self.assertEqual(self.cpu_register('A'), 0x01)
 
         return
         # TODO
@@ -1511,7 +1511,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x18)
+        self.assertEqual(self.cpu_register('A'), 0x18)
 
     def test_sbc_zeroPage(self):
         self.cpu_set_flag('C')
@@ -1523,7 +1523,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x01)
+        self.assertEqual(self.cpu_register('A'), 0x01)
 
     def test_sbc_zeropage_x(self):
         self.cpu_set_flag('C')
@@ -1536,7 +1536,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x01)
+        self.assertEqual(self.cpu_register('A'), 0x01)
 
     def test_sbc_absolute(self):
         self.cpu_set_flag('C')
@@ -1549,7 +1549,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x01)
+        self.assertEqual(self.cpu_register('A'), 0x01)
 
     def test_sbc_absolute_x(self):
         self.cpu_set_flag('C')
@@ -1563,7 +1563,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x01)
+        self.assertEqual(self.cpu_register('A'), 0x01)
 
     def test_sbc_absolute_y(self):
         self.cpu_set_flag('C')
@@ -1577,7 +1577,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x01)
+        self.assertEqual(self.cpu_register('A'), 0x01)
 
     def test_sbc_indirect_x(self):
         self.cpu_set_flag('C')
@@ -1593,7 +1593,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x01)
+        self.assertEqual(self.cpu_register('A'), 0x01)
 
     def test_sbc_indirect_y(self):
         self.cpu_set_flag('C')
@@ -1608,7 +1608,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x01)
+        self.assertEqual(self.cpu_register('A'), 0x01)
 
     def test_sbc_c_flag_set(self):
         self.cpu_set_register('A', 0xc4) # -60
@@ -2097,7 +2097,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0xff)
+        self.assertEqual(self.memory_fetch(0x0084), 0xff)
 
     def test_inc_zeropage_x(self):
         self.cpu_set_register('X', 0x01)
@@ -2108,7 +2108,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0xff)
+        self.assertEqual(self.memory_fetch(0x0085), 0xff)
 
     def test_inc_absolute(self):
         self.cpu_pc(0x0100)
@@ -2119,7 +2119,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0xff)
+        self.assertEqual(self.memory_fetch(0x0084), 0xff)
 
     def test_inc_absolute_x(self):
         self.cpu_set_register('X', 1)
@@ -2131,7 +2131,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0xff)
+        self.assertEqual(self.memory_fetch(0x0085), 0xff)
 
     def test_inc_z_flag_set(self):
         self.cpu_pc(0x0100)
@@ -2182,7 +2182,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('X'), 0xff)
+        self.assertEqual(self.cpu_register('X'), 0xff)
 
     def test_inx_z_flag_set(self):
         self.cpu_set_register('X', 0xff) # -1
@@ -2230,7 +2230,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('Y'), 0xff)
+        self.assertEqual(self.cpu_register('Y'), 0xff)
 
     def test_iny_z_flag_set(self):
         self.cpu_set_register('Y', 0xff) # -1
@@ -2278,7 +2278,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0x01)
+        self.assertEqual(self.memory_fetch(0x0084), 0x01)
 
     def test_dec_zeropage_x(self):
         self.cpu_set_register('X', 0x01)
@@ -2289,7 +2289,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0x01)
+        self.assertEqual(self.memory_fetch(0x0085), 0x01)
 
     def test_dec_absolute(self):
         self.cpu_pc(0x0100)
@@ -2300,7 +2300,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0x01)
+        self.assertEqual(self.memory_fetch(0x0084), 0x01)
 
     def test_dec_absolute_x(self):
         self.cpu_set_register('X', 1)
@@ -2312,7 +2312,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0x01)
+        self.assertEqual(self.memory_fetch(0x0085), 0x01)
 
     def test_dec_z_flag_set(self):
         self.cpu_pc(0x0100)
@@ -2363,7 +2363,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('X'), 0x01)
+        self.assertEqual(self.cpu_register('X'), 0x01)
 
     def test_dex_z_flag_set(self):
         self.cpu_set_register('X', 0x01)
@@ -2411,7 +2411,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('Y'), 0x01)
+        self.assertEqual(self.cpu_register('Y'), 0x01)
 
     def test_dey_z_flag_set(self):
         self.cpu_set_register('Y', 0x01)
@@ -2458,7 +2458,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x04)
+        self.assertEqual(self.cpu_register('A'), 0x04)
 
     def test_asl_zeroPage(self):
         self.cpu_pc(0x0100)
@@ -2468,7 +2468,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0x04)
+        self.assertEqual(self.memory_fetch(0x0084), 0x04)
 
     def test_asl_zeropage_x(self):
         self.cpu_set_register('X', 0x01)
@@ -2479,7 +2479,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0x04)
+        self.assertEqual(self.memory_fetch(0x0085), 0x04)
 
 
     def test_asl_absolute(self):
@@ -2493,7 +2493,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0x04)
+        self.assertEqual(self.memory_fetch(0x0084), 0x04)
 
 
     def test_asl_absoluteX(self):
@@ -2507,7 +2507,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0x04)
+        self.assertEqual(self.memory_fetch(0x0085), 0x04)
 
     def test_asl_c_flag_set(self):
         self.cpu_set_register('A', 0xff)
@@ -2572,7 +2572,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x01)
+        self.assertEqual(self.cpu_register('A'), 0x01)
 
     def test_lsr_zeroPage(self):
         self.cpu_pc(0x0100)
@@ -2582,7 +2582,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0x01)
+        self.assertEqual(self.memory_fetch(0x0084), 0x01)
 
     def test_lsr_zeropage_x(self):
         self.cpu_set_register('X', 0x01)
@@ -2593,7 +2593,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0x01)
+        self.assertEqual(self.memory_fetch(0x0085), 0x01)
 
     def test_lsr_absolute(self):
         self.cpu_pc(0x0100)
@@ -2604,7 +2604,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0x01)
+        self.assertEqual(self.memory_fetch(0x0084), 0x01)
 
     def test_lsr_absolute_x(self):
         self.cpu_set_register('X', 1)
@@ -2616,7 +2616,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0x01)
+        self.assertEqual(self.memory_fetch(0x0085), 0x01)
 
     def test_lsr_c_flag_set(self):
         self.cpu_set_register('A', 0xff)
@@ -2680,7 +2680,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x05)
+        self.assertEqual(self.cpu_register('A'), 0x05)
 
 
     def test_rol_zeropage(self):
@@ -2694,7 +2694,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0x05)
+        self.assertEqual(self.memory_fetch(0x0084), 0x05)
 
 
     def test_rol_zeropage_x(self):
@@ -2709,7 +2709,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0x05)
+        self.assertEqual(self.memory_fetch(0x0085), 0x05)
 
 
     def test_rol_absolute(self):
@@ -2724,7 +2724,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0x05)
+        self.assertEqual(self.memory_fetch(0x0084), 0x05)
 
 
     def test_rol_absolute_x(self):
@@ -2740,7 +2740,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0x05)
+        self.assertEqual(self.memory_fetch(0x0085), 0x05)
 
 
     def test_rol_c_flag_set(self):
@@ -2810,7 +2810,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('A'), 0x84)
+        self.assertEqual(self.cpu_register('A'), 0x84)
 
     def test_ror_zeropage(self):
         self.cpu_set_flag('C')
@@ -2821,7 +2821,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0x84)
+        self.assertEqual(self.memory_fetch(0x0084), 0x84)
 
     def test_ror_zeropage_x(self):
         self.cpu_set_flag('C')
@@ -2833,7 +2833,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0x84)
+        self.assertEqual(self.memory_fetch(0x0085), 0x84)
 
     def test_ror_absolute(self):
         self.cpu_set_flag('C')
@@ -2845,7 +2845,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0084), 0x84)
+        self.assertEqual(self.memory_fetch(0x0084), 0x84)
 
     def test_ror_absolute_x(self):
         self.cpu_set_flag('C')
@@ -2858,7 +2858,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.memory_fetch(0x0085), 0x84)
+        self.assertEqual(self.memory_fetch(0x0085), 0x84)
 
     def test_ror_c_flag_set(self):
         self.cpu_set_register('A', 0x01)
@@ -2928,7 +2928,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x01ff)
+        self.assertEqual(self.cpu_register('PC'), 0x01ff)
 
     def test_jmp_indirect(self):
         self.cpu_pc(0x0100)
@@ -2940,7 +2940,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0xffff)
+        self.assertEqual(self.cpu_register('PC'), 0xffff)
 
     # // JSR
 
@@ -2952,9 +2952,9 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x01ff)
-        #TODO: self.assertEquals(self.memory_fetch(0x01fd), 0x01)
-        #TODO: self.assertEquals(self.memory_fetch(0x01fc), 0x02)
+        self.assertEqual(self.cpu_register('PC'), 0x01ff)
+        #TODO: self.assertEqual(self.memory_fetch(0x01fd), 0x01)
+        #TODO: self.assertEqual(self.memory_fetch(0x01fc), 0x02)
 
         self.cpu_pc(0x0100)
 
@@ -2966,8 +2966,8 @@ class CPU6502Spec(object):
         self.execute()
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0103)
-        self.assertEquals(self.cpu_register('SP'), 0xfd)
+        self.assertEqual(self.cpu_register('PC'), 0x0103)
+        self.assertEqual(self.cpu_register('SP'), 0xfd)
 
         self.cpu_pc(0x0100)
         self.memory_set(0x0100, 0x20) # JSR $0084
@@ -2980,7 +2980,7 @@ class CPU6502Spec(object):
 
         # TODO:    cpu.Run()
         # self.execute()
-        # self.assertEquals(self.cpu_register('A'), 0xff)
+        # self.assertEqual(self.cpu_register('A'), 0xff)
 
     # // RTS
 
@@ -2991,7 +2991,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0103)
+        self.assertEqual(self.cpu_register('PC'), 0x0103)
 
 
     # // BCC
@@ -3003,8 +3003,8 @@ class CPU6502Spec(object):
 
         cycles, _ = self.execute()
 
-        self.assertEquals(cycles, 2)
-        self.assertEquals(self.cpu_register('PC'), 0x0102)
+        self.assertEqual(cycles, 2)
+        self.assertEqual(self.cpu_register('PC'), 0x0102)
 
         self.cpu_unset_flag('C')
         self.cpu_pc(0x0100)
@@ -3013,8 +3013,8 @@ class CPU6502Spec(object):
 
         cycles, _ = self.execute()
 
-        # TODO: self.assertEquals(cycles, 3)
-        self.assertEquals(self.cpu_register('PC'), 0x0104)
+        # TODO: self.assertEqual(cycles, 3)
+        self.assertEqual(self.cpu_register('PC'), 0x0104)
 
         self.cpu_unset_flag('C')
         self.cpu_pc(0x0100)
@@ -3023,8 +3023,8 @@ class CPU6502Spec(object):
 
         cycles, _ = self.execute()
 
-        # TODO: self.assertEquals(cycles, 4)
-        self.assertEquals(self.cpu_register('PC'), 0x00ff)
+        # TODO: self.assertEqual(cycles, 4)
+        self.assertEqual(self.cpu_register('PC'), 0x00ff)
 
     # // BCS
 
@@ -3036,7 +3036,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0104)
+        self.assertEqual(self.cpu_register('PC'), 0x0104)
         self.cpu_set_flag('C')
         self.cpu_pc(0x0100)
         self.memory_set(0x0100, 0xb0)
@@ -3044,7 +3044,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0100)
+        self.assertEqual(self.cpu_register('PC'), 0x0100)
 
     # // BEQ
 
@@ -3056,7 +3056,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0104)
+        self.assertEqual(self.cpu_register('PC'), 0x0104)
 
         self.cpu_set_flag('Z')
         self.cpu_pc(0x0100)
@@ -3065,7 +3065,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0100)
+        self.assertEqual(self.cpu_register('PC'), 0x0100)
 
     # // BMI
 
@@ -3077,7 +3077,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0104)
+        self.assertEqual(self.cpu_register('PC'), 0x0104)
 
         self.cpu_set_flag('N')
         self.cpu_pc(0x0100)
@@ -3086,7 +3086,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0100)
+        self.assertEqual(self.cpu_register('PC'), 0x0100)
 
     # // BNE
 
@@ -3098,7 +3098,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0104)
+        self.assertEqual(self.cpu_register('PC'), 0x0104)
 
         self.cpu_unset_flag('Z')
         self.cpu_pc(0x0100)
@@ -3107,7 +3107,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0100)
+        self.assertEqual(self.cpu_register('PC'), 0x0100)
 
     # // BPL
 
@@ -3121,7 +3121,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0104)
+        self.assertEqual(self.cpu_register('PC'), 0x0104)
 
         self.cpu_unset_flag('N')
         self.cpu_pc(0x0100)
@@ -3131,7 +3131,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0100)
+        self.assertEqual(self.cpu_register('PC'), 0x0100)
 
     # // BVC
 
@@ -3143,7 +3143,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0104)
+        self.assertEqual(self.cpu_register('PC'), 0x0104)
         self.cpu_unset_flag('V')
         self.cpu_pc(0x0100)
         self.memory_set(0x0100, 0x50)
@@ -3151,7 +3151,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0100)
+        self.assertEqual(self.cpu_register('PC'), 0x0100)
 
     # // BVS
 
@@ -3163,7 +3163,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0104)
+        self.assertEqual(self.cpu_register('PC'), 0x0104)
 
         self.cpu_set_flag('V')
         self.cpu_pc(0x0100)
@@ -3172,7 +3172,7 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0100)
+        self.assertEqual(self.cpu_register('PC'), 0x0100)
 
     # // CLC
 
@@ -3323,9 +3323,9 @@ class CPU6502Spec(object):
 
         self.execute()
 
-        self.assertEquals(self.cpu_pull_byte(), 0xff)
-        self.assertEquals(self.cpu_pull_word(), 0x0102)
-        self.assertEquals(self.cpu_register('PC'), 0x01ff)
+        self.assertEqual(self.cpu_pull_byte(), 0xff)
+        self.assertEqual(self.cpu_pull_word(), 0x0102)
+        self.assertEqual(self.cpu_register('PC'), 0x01ff)
 
 
     # // RTI
@@ -3339,8 +3339,8 @@ class CPU6502Spec(object):
         self.execute()
 
         # Overflow flag set seens odd
-        # TODO: self.assertEquals(self.cpu_register('P'), 0x23)
-        self.assertEquals(self.cpu_register('PC'), 0x0102)
+        # TODO: self.assertEqual(self.cpu_register('P'), 0x23)
+        self.assertEqual(self.cpu_register('PC'), 0x0102)
 
 
 # // Rom
@@ -3371,9 +3371,9 @@ class CPU6502Spec(object):
 #         }
 #     }
 
-#     self.assertEquals(self.memory_fetch(0x0002), 0x00)
+#     self.assertEqual(self.memory_fetch(0x0002), 0x00)
 
-#     self.assertEquals(self.memory_fetch(0x0003), 0x00)
+#     self.assertEqual(self.memory_fetch(0x0003), 0x00)
 
 
     # // Irq
@@ -3396,7 +3396,7 @@ class CPU6502Spec(object):
         #     t.Error("Memory is not 0x0100")
         # }
 
-        self.assertEquals(self.cpu_register('PC'), 0x0140)
+        self.assertEqual(self.cpu_register('PC'), 0x0140)
 
         # if cpu.GetInterrupt(Irq) {
         #     t.Error("Interrupt is set")
@@ -3423,7 +3423,7 @@ class CPU6502Spec(object):
         #     t.Error("Memory is not 0x0100")
         # }
 
-        self.assertEquals(self.cpu_register('PC'), 0x0140)
+        self.assertEqual(self.cpu_register('PC'), 0x0140)
 
         # if cpu.GetInterrupt(Nmi) {
         #     t.Error("Interrupt is set")
@@ -3443,7 +3443,7 @@ class CPU6502Spec(object):
 
         # cpu.PerformInterrupts()
 
-        self.assertEquals(self.cpu_register('PC'), 0x0140)
+        self.assertEqual(self.cpu_register('PC'), 0x0140)
 
         # if cpu.GetInterrupt(Rst) {
         #     t.Error("Interrupt is set")

@@ -49,6 +49,6 @@ class TheFundamentalsTest(Py65CPUBridge, TestCase):
         self.load_program(code)
         self.run_program()
 
-        self.assertEquals(self.cpu_register('A'), 7)
-        self.assertEquals(7, self.memory_fetch(0x0fa0))
+        self.assertEqual(self.cpu_register('A'), 7)
+        self.assertEqual(7, self.memory_fetch(0x0fa0))
 
