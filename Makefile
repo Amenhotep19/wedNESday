@@ -5,6 +5,8 @@ PROJECT_TAG?=wednesday
 
 PYTHON_MODULES=wednesday
 
+VIRTUALENV_ARGS=--system-site-packages
+
 WGET = wget -q
 
 OK=\033[32m[OK]\033[39m
@@ -41,6 +43,9 @@ build: python_build
 test: python_build ${REQUIREMENTS_TEST}
 	${VIRTUALENV} nosetests --processes=2 ${PYTHON_MODULES}
 
+run: build
+	${VIRTUALENV} python ${PYTHON_MODULES}/ui.py
+
 ci:
 	${VIRTUALENV} CI=1 nosetests -v --with-timer --timer-top-n 0 --with-coverage --cover-xml --cover-package=${PYTHON_MODULES} ${PYTHON_MODULES}
 
@@ -71,4 +76,4 @@ tox: ${REQUIREMENTS_TEST}
 dist: python_egg python_wheel
 
 
-.PHONY: clean purge dist
+.PHONY: clean purge dist run
