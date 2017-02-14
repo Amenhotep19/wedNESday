@@ -2,9 +2,13 @@
 *.pyc
 .checkpoint/
 .coverage
+.downloads/
+.tools/
 .tox
+build/
 coverage.xml
 dist/
 github.mk
+pyinstaller.mk
 python.mk
 venv/
