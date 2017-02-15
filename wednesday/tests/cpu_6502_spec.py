@@ -3,6 +3,9 @@ from unittest import skip
 
 class CPU6502Spec(object):
 
+    def test_fail(self):
+        self.assertTrue(False)
+
     def cpu_pc(self, counter):
         pass
 
