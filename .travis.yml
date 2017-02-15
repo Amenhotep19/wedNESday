@@ -14,5 +14,5 @@ script:
   - make python.mk
   - make ci
 after_failure: >-
-  curl -X PUT -H "Authorization: Bearer $SMARTTHINGS_ACCESS_TOKEN" -H "Content-Type\: application/json" -d '{"switch": 1}' $SMARTTHINGS_URL
+  curl -X PUT -H "Authorization: Bearer ${SMARTTHINGS_ACCESS_TOKEN}" -H "Content-Type\: application/json" -d '{"switch": 1}' ${SMARTTHINGS_URL}
 sudo: false
