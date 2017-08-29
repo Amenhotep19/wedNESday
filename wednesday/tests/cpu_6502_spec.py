@@ -4,43 +4,43 @@ from unittest import skip
 class CPU6502Spec(object):
 
     def cpu_pc(self, counter):
-        pass
+        raise NotImplementedError()
 
     def memory_set(self, pos, val):
-        pass
+        raise NotImplementedError()
 
     def memory_fetch(self, pos):
-        pass
+        raise NotImplementedError()
 
     def execute(self):
-        pass
+        raise NotImplementedError()
 
     def cpu_set_register(self, register, value):
-        pass
+        raise NotImplementedError()
 
     def cpu_register(self, register):
-        pass
+        raise NotImplementedError()
 
     def cpu_flag(self, flag):
-        pass
+        raise NotImplementedError()
 
     def cpu_set_flag(self, flag):
-        pass
+        raise NotImplementedError()
 
     def cpu_unset_flag(self, flag):
-        pass
+        raise NotImplementedError()
 
     def cpu_push_byte(self, byte):
-        pass
+        raise NotImplementedError()
 
     def cpu_pull_byte(self):
-        pass
+        raise NotImplementedError()
 
     def cpu_push_word(self, word):
-        pass
+        raise NotImplementedError()
 
     def cpu_pull_word(self):
-        pass
+        raise NotImplementedError()
 
     def test_lda_imediate(self):
         self.cpu_pc(0x0100)
