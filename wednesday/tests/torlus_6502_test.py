@@ -46,6 +46,14 @@ class Torlus6502Test(CPU6502Spec, TestCase):
     def cpu_set_register(self, register, value):
         if register == 'SP':
             register = 'S'
+        if register == 'P':
+            self.ctx.eval('cpu.C = %s' % [0, 1][0 != value & 1])
+            self.ctx.eval('cpu.Z = %s' % [0, 1][0 != value & 2])
+            self.ctx.eval('cpu.I = %s' % [0, 1][0 != value & 4])
+            self.ctx.eval('cpu.D = %s' % [0, 1][0 != value & 8])
+            self.ctx.eval('cpu.V = %s' % [0, 1][0 != value & 64])
+            self.ctx.eval('cpu.N = %s' % [0, 1][0 != value & 128])
+            return
         self.ctx.eval('cpu.%s = %s' % (register, value))
 
     def cpu_register(self, register):
@@ -107,10 +115,6 @@ class Torlus6502Test(CPU6502Spec, TestCase):
 
     @skip('TODO')
     def test_jsr(self):
-        pass
-
-    @skip('TODO')
-    def test_php(self):
         pass
 
     @skip('TODO')
