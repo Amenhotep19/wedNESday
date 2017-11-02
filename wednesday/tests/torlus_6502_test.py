@@ -1,7 +1,6 @@
 from __future__ import print_function
 
-from unittest import TestCase
-from unittest import SkipTest
+from unittest import TestCase, SkipTest, skip
 
 from py65.devices.mpu6502 import MPU
 from wednesday.tests.cpu_6502_spec import CPU6502Spec
@@ -16,6 +15,7 @@ class Torlus6502Test(CPU6502Spec, TestCase):
 
     @classmethod
     def setUpClass(cls):
+        cls.STACK_PAGE = 0x100
         with open(dir_path + '/../torlus6502.js') as f:
             javascript = f.read()
         cls.ctx = MiniRacer()
@@ -63,13 +63,72 @@ class Torlus6502Test(CPU6502Spec, TestCase):
         self.ctx.eval('cpu.%s = 0' % flag)
 
     def cpu_push_byte(self, byte):
-        raise NotImplementedError()
+        stack_pointer = self.ctx.eval('cpu.S')
+        self.ctx.eval('mem[%s] = %s' % (self.STACK_PAGE + stack_pointer, byte))
+        self.ctx.eval('cpu.S = %s' % ((stack_pointer - 1) % 0x100))
 
     def cpu_pull_byte(self):
-        raise NotImplementedError()
+        stack_pointer = (self.ctx.eval('cpu.S') + 1) % 0x100
+        self.ctx.eval('cpu.S = %s' % stack_pointer)
+        return self.ctx.eval('mem[%s]' % (self.STACK_PAGE + stack_pointer))
 
     def cpu_push_word(self, word):
-        raise NotImplementedError()
+        hi, lo = divmod(word, 0x100)
+        self.cpu_push_byte(hi)
+        self.cpu_push_byte(lo)
 
     def cpu_pull_word(self):
+        stack_pointer = self.ctx.eval('cpu.S')
+        s = self.STACK_PAGE + stack_pointer + 1
+        stack_pointer += 2
         raise NotImplementedError()
+
+    def push_byte(self, byte):
+        self.write_byte(self.STACK_PAGE + self.stack_pointer, byte)
+        self.stack_pointer = (self.stack_pointer - 1) % 0x100
+
+    def pull_byte(self):
+        self.stack_pointer = (self.stack_pointer + 1) % 0x100
+        return self.read_byte(self.STACK_PAGE + self.stack_pointer)
+
+    def push_word(self, word):
+        hi, lo = divmod(word, 0x100)
+        self.push_byte(hi)
+        self.push_byte(lo)
+
+    def pull_word(self):
+        s = self.STACK_PAGE + self.stack_pointer + 1
+        self.stack_pointer += 2
+        return self.read_word(s)
+
+    @skip('TODO')
+    def test_brk(self):
+        pass
+
+    @skip('TODO')
+    def test_jsr(self):
+        pass
+
+    @skip('TODO')
+    def test_php(self):
+        pass
+
+    @skip('TODO')
+    def test_pla(self):
+        pass
+
+    @skip('TODO')
+    def test_pla_n_flag_set(self):
+        pass
+
+    @skip('TODO')
+    def test_pla_z_flag_set(self):
+        pass
+
+    @skip('TODO')
+    def test_rti(self):
+        pass
+
+    @skip('TODO')
+    def test_rts(self):
+        pass
