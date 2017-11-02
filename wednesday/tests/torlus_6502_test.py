@@ -19,11 +19,11 @@ class Torlus6502Test(CPU6502Spec, TestCase):
         with open(dir_path + '/../torlus6502.js') as f:
             javascript = f.read()
         cls.ctx = MiniRacer()
-        cls.ctx.eval('var mem = Array.apply(null, Array(300)).map(Number.prototype.valueOf,0);')
+        cls.ctx.eval('var mem = [];')
         cls.ctx.eval(javascript)
 
     def setUp(self):
-        self.ctx.eval('var mem = Array.apply(null, Array(300)).map(Number.prototype.valueOf,0);')
+        self.ctx.eval('var mem = Array.apply(null, Array(600)).map(Number.prototype.valueOf,0);')
         self.ctx.eval('cpu = new CPU6502()')
         self.ctx.eval('cpu.reset()')
 
@@ -119,7 +119,18 @@ class Torlus6502Test(CPU6502Spec, TestCase):
 
     @skip('TODO')
     def test_pla(self):
-        pass
+        '''
+        Minor changes on pla,
+        might understand why it does work on
+        taubers and py65
+        '''
+        self.cpu_push_byte(0xff)
+        self.cpu_pc(0x0200)
+        self.memory_set(0x0200, 0x68)
+
+        self.execute()
+
+        self.assertEqual(self.cpu_register('A'), 0xff)
 
     @skip('TODO')
     def test_pla_n_flag_set(self):
