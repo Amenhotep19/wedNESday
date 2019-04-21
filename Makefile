@@ -5,6 +5,8 @@ PROJECT_TAG?=wednesday
 
 PYTHON_MODULES=wednesday
 
+VIRTUALENV_ARGS= -p python3
+
 WGET = wget -q
 
 ifeq "" "$(shell which wget)"
