@@ -7,6 +7,10 @@ PYTHON_MODULES=wednesday
 
 WGET = wget -q
 
+ifeq "" "$(shell which wget)"
+WGET = curl -O -s
+endif
+
 OK=\033[32m[OK]\033[39m
 FAIL=\033[31m[FAIL]\033[39m
 CHECK=@if [ $$? -eq 0 ]; then echo "${OK}"; else echo "${FAIL}" ; fi
