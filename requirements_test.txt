@@ -1,7 +1,6 @@
-coverage==4.3.4
 nesasm==0.0.8
-nose-notify==0.4.2
-nose-timer==0.6.0
-nose==1.3.3
-tdaemon==0.1.1
+pycodestyle==2.4.0
+pytest-cov==2.6.0
+pytest-watch==4.2.0
+pytest==3.8.0
 tox==2.5.0

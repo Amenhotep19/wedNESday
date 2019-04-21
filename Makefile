@@ -39,19 +39,20 @@ github.mk:
 clean: python_clean
 
 purge: python_purge
-	@rm python.mk
-	@rm github.mk
+	@rm -rf python.mk github.mk
+	@rm -rf .tox
+	@rm -rf .pytest_cache
 
 build: python_build
 
-test: python_build ${REQUIREMENTS_TEST}
-	${VIRTUALENV} nosetests --processes=2 ${PYTHON_MODULES}
+test: build ${REQUIREMENTS_TEST}
+	${VIRTUALENV} py.test ${PYTHON_MODULES} --ignore ${PYTHON_MODULES}/tests/integration
 
 ci:
 ifeq "true" "${TRAVIS}"
-	CI=1 nosetests -v --with-timer --timer-top-n 0 --with-coverage --cover-xml --cover-package=${PYTHON_MODULES} ${PYTHON_MODULES}
+	CI=1 py.test ${PYTHON_MODULES} -v --durations=0 --cov=${PYTHON_MODULES} ${PYTHON_MODULES}/tests/ --cov-config .coveragerc --cov-report=xml
 else
-	${VIRTUALENV} CI=1 nosetests -v --with-timer --timer-top-n 0 --with-coverage --cover-xml --cover-package=${PYTHON_MODULES} ${PYTHON_MODULES}
+	${VIRTUALENV} C1=1 py.test ${PYTHON_MODULES} -v --durations=0 --cov=${PYTHON_MODULES} ${PYTHON_MODULES}/tests/ --cov-config .coveragerc --cov-report=xml
 endif
 
 pep8: ${REQUIREMENTS_TEST}
@@ -67,13 +68,8 @@ search:
 report:
 	coverage run --source=${PYTHON_MODULES} setup.py test
 
-tdd:
-	${VIRTUALENV} ls -d */ | \
-		cut -d'/' -f1 | \
-		egrep -v '$^${PYTHON_MODULES}$$' | \
-		paste -s -d',' | \
-		sed '/^$$/d;s/[[:blank:]]//g' | \
-		xargs -e -I [] echo tdaemon --ignore-dirs=\"[]\" --custom-args=\"--with-notify --no-start-message\"
+tdd: ${REQUIREMENTS_TEST}
+		${VIRTUALENV} ptw --ignore ${VIRTUALENV_DIR}
 
 tox: ${REQUIREMENTS_TEST}
 	${VIRTUALENV} tox
